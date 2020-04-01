@@ -1,6 +1,18 @@
 // Require necessary NPM packages
 const express = require('express');
+const mongoose = require('mongoose');
 const cors = require('cors');
+
+
+
+// Require DB Configuration File
+const db = require('./config/db');
+
+// Establish Database Connection
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connection.once('open', () => {
+  console.log('Connected to Mongo');
+});
 
 
 // Instantiate Express Application Object
