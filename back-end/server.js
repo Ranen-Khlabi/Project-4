@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 
+// Require Route Files
+const studentRouter = require('./routes/student');
 
 // Require DB Configuration File
 const db = require('./config/db');
@@ -32,6 +34,9 @@ app.use(express.json());
 
 // Set CORS headers on response from this API using the `cors` NPM package.
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || `http://localhost:${reactPort}` }))
+
+// Mount imported Routers
+app.use(studentRouter);
 
 
 // Start the server to listen for requests on a given port
