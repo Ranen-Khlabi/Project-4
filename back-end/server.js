@@ -6,6 +6,7 @@ const cors = require('cors');
 
 // Require Route Files
 const studentRouter = require('./routes/student');
+const contributorRouter = require('./routes/contributor');
 
 // Require DB Configuration File
 const db = require('./config/db');
@@ -37,6 +38,7 @@ app.use(cors({ origin: process.env.CLIENT_ORIGIN || `http://localhost:${reactPor
 
 // Mount imported Routers
 app.use(studentRouter);
+app.use(contributorRouter);
 
 
 // Start the server to listen for requests on a given port
