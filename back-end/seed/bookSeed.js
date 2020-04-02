@@ -47,6 +47,8 @@ const Books = [{
 }]
 
 
+
+
 // Insert Book array to the database
 Book.insertMany(Books)
     .then(() => console.log("Data added"))
