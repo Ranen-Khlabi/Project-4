@@ -25,6 +25,35 @@ router.get("/api/students", (req, res) => {
 
 
 /**
+ * @method : GET
+ * @route  : /api/student/id
+ * @action :  Show
+ * @desc   : get an student by student ID
+ */
+router.get("/api/students/:id", (req, res) => {
+  Student.findById(req.params.id)
+    .then(student => {
+      if (student) {
+        res.status(200).json({ students: student });
+      } else {
+        // if we coudn't find a document with matching ID
+        res.status(404).json({
+          error: {
+            name: "DocumentNotFoundError ",
+            message: "The  providednId dosen't match any documents"
+          }
+        });
+      }
+    })
+    //catch any errors that may accours
+    .catch(error => {
+      res.status(500).json({ error: error });
+    });
+});
+
+
+
+/**
  * @method POST
  * @route   /api/students
  * @action  CREATE
