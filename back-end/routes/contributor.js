@@ -74,6 +74,40 @@ router.post("/api/contributors", (req, res) => {
 
 
 
+/**
+ * @method  PATCH
+ * @route   /api/contributors/:id
+ * @action  UPDATE
+ * @desc    Update a contributors by ID
+ */
+router.patch("/api/contributors/:id", (req, res) => {
+    // Find the contributor with the passed ID
+    Contributor.findById(req.params.id)
+        .then(contributor => {
+            // Check if a contributor is found by the passed ID
+            if (contributor) {
+                // Update the existing contributor with the new data from the request body
+                return contributor.update(req.body.contributors);
+
+            } else {
+                // If no contributor was found by the passed ID, send an error message as response
+                res.status(404).json({
+                    error: {
+                        name: "DocumentNotFoundError",
+                        message: "The provided ID doesn't match any documents"
+                    }
+                });
+            }
+        })
+        .then(() => {
+            // If the update succeeded, return 204 and no JSON response
+            res.status(204).end();
+        })
+        .catch(error => res.status(500).json({ error }));
+});
+
+
+
 
 
 
