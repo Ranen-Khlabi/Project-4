@@ -59,6 +59,21 @@ router.get('/api/contributors/:id', (req, res) => {
 
 
 
+/**
+ * @method POST
+ * @route   /api/contributors
+ * @action  CREATE
+ * @desc    Create a new contributors
+ */
+router.post("/api/contributors", (req, res) => {
+    // Add the contributors recieved from the request body to the database
+    Contributor.create(req.body.contributor)
+        .then(contributor => res.status(201).json({ contributor }))
+        .catch(error => res.status(500).json({ error }));
+});
+
+
+
 
 
 
