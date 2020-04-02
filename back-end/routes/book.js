@@ -57,5 +57,20 @@ router.get('/api/books/:id', (req, res) => {
 
 
 
+/**
+ * @method  POST
+ * @route   /api/books
+ * @action  CREATE
+ * @desc    Create a new books
+ */
+router.post("/api/books", (req, res) => {
+    // Add the books recieved from the request body to the database
+    Book.create(req.body.book)
+        .then(book => res.status(201).json({ book }))
+        .catch(error => res.status(500).json({ error }));
+});
+
+
+
 //export the Router 
 module.exports = router;
