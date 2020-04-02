@@ -108,6 +108,39 @@ router.patch("/api/contributors/:id", (req, res) => {
 
 
 
+/**
+ * @method  DELETE
+ * @route   /api/contributors/id
+ * @action  DESTROY
+ * @desc    Delete An contributor by contributor ID
+ */
+router.delete("/api/contributors/:id", (req, res) => {
+    // Find the contributor with the passed ID
+    Contributor.findById(req.params.id)
+        .then(contributor => {
+            // Check if a contributor is found by the passed ID
+            if (contributor) {
+               // pass the result of Mongoose's  .delete method to next.then statment
+                return contributor.delete();
+            } else {
+                // If no user was found by the passed ID, send an error message as response
+                res.status(404).json({
+                    error: {
+                        name: "DocumentNotFoundError",
+                        message: "The provided ID doesn't match any documents"
+                    }
+                });
+            }
+        })
+        .then(() => {
+            // If the update succeeded, return 204 and no JSON response
+            res.status(204).end();
+        })
+        .catch(error => res.status(500).json({ error }));
+});
+
+
+
 
 
 
