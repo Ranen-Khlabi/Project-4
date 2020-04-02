@@ -1,8 +1,8 @@
 import apiUrl from '../apiConfig';
 import axios from 'axios';
 
-// Get All Posts
-const getAllPosts = () => {
-  return axios.get(`${apiUrl}/posts`);
+// Get All Books
+const getAllBooks = () => {
+  return axios.get(`${apiUrl}/books`);
 };
-export { getAllPosts}
+export { getAllBooks}
