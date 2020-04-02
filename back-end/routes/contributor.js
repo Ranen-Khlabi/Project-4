@@ -9,6 +9,25 @@ const router = express.Router();
 
 
 
+/**
+ * @method GET
+ * @route  /api/contributors
+ * @action  INDEX
+ * @desc    Get All contributors 
+ */
+router.get('/api/contributors', (req, res) => {
+    Contributor.find()
+    // Return all contributor as an Array
+    .then((contributor) => {
+      res.status(200).json({ contributors: contributor });
+      console.log(contributors)
+    })
+    // Catch any errors that might occur
+    .catch((error) => {
+      res.status(500).json({ error: error });
+    });
+  });
+
 
 
 
