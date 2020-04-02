@@ -8,6 +8,7 @@ const cors = require('cors');
 const studentRouter = require('./routes/student');
 const contributorRouter = require('./routes/contributor');
 const bookRouter = require('./routes/book');
+const bookRouter = require('./routes/book');
 
 // Require DB Configuration File
 const db = require('./config/db');
@@ -40,6 +41,7 @@ app.use(cors({ origin: process.env.CLIENT_ORIGIN || `http://localhost:${reactPor
 // Mount imported Routers
 app.use(studentRouter);
 app.use(contributorRouter);
+app.use(bookRouter);
 app.use(bookRouter);
 
 
