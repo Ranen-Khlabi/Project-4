@@ -1,8 +1,6 @@
-import React, { Component } from "react";
-import "./App.css";
 import React from 'react';
 import './App.css';
-import Posts from './posts/posts';
+import Books from './books/books';
 import apiURL from './apiConfig';
 
 
@@ -12,19 +10,19 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state={
-     posts:[]
+     books:[]
     };
     console.log('API URL', apiURL);
   }
 
-  setPosts =(posts)=>{
-    this.setState({ posts:posts });
+  setBooks =(books)=>{
+    this.setState({ books:books });
   }
   render() {
     return(
       <div className ="App">
-      <Posts posts={this.state.posts}
-      setPosts ={this.setPosts} />
+      <Books books={this.state.books}
+      setBooks ={this.setBooks} />
       </div>
         );
     }
