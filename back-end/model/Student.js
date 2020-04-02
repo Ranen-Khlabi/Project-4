@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 
-// Define Article Schema
+// Define Student Schema
 const studentSchema = new mongoose.Schema({
   name: { type: String, required: true },
 });
