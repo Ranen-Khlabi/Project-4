@@ -73,6 +73,40 @@ router.post("/api/books", (req, res) => {
 
 
 /**
+ * @method PATCH
+ * @route   /api/books/:id
+ * @action  UPDATE
+ * @desc    Update a books by ID
+ */
+router.patch("/api/books/:id", (req, res) => {
+    // Find the book with the passed ID
+    Book.findById(req.params.id)
+        .then(book => {
+            // Check if a book is found by the passed ID
+            if (book) {
+                // Update the existing book with the new data from the request body
+                return book.update(req.body.books);
+
+            } else {
+                // If no book was found by the passed ID, send an error message as response
+                res.status(404).json({
+                    error: {
+                        name: "DocumentNotFoundError",
+                        message: "The provided ID doesn't match any documents"
+                    }
+                });
+            }
+        })
+        .then(() => {
+            // If the update succeeded, return 204 and no JSON response
+            res.status(204).end();
+        })
+        .catch(error => res.status(500).json({ error }));
+});
+
+
+
+/**
  * @method  DELETE
  * @route   /api/books/id
  * @action  DESTROY
@@ -87,7 +121,7 @@ router.delete("/api/books/:id", (req, res) => {
                // pass the result of Mongoose's  .delete method to next.then statment
                 return book.delete();
             } else {
-                // If no student was found by the passed ID, send an error message as response
+                // If no book was found by the passed ID, send an error message as response
                 res.status(404).json({
                     error: {
                         name: "DocumentNotFoundError",
