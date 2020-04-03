@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Books from "./books/component/books";
+import Books from "../../books/component/books";
 import StudentForm from "./StudentForm";
 
 
@@ -11,15 +11,15 @@ export default class Student extends Component {
     };
   }
 
-  HandlerStudentLog = name => {
+  StudentLog = name => {
     this.setState({
-      StudentLog: true
+      StudentLog: true,
     });
   };
 
 
   render() {
-    const books = this.state.HandlerStudentLog ? (
+    const books = this.state.StudentLog ? (
       <Books 
       books={this.props.books} 
       setBooks={this.props.setBooks} 
@@ -30,7 +30,7 @@ export default class Student extends Component {
 
     return (
       <div>
-        <StudentForm HandlerStudentLog={this.HandlerStudentLog} />
+        <StudentForm StudentLog = {this.StudentLog} />
         {books}
       </div>
     );

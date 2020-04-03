@@ -3,19 +3,18 @@ import React, { Component } from 'react';
 
 
 export default class StudentForm extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-            name : ""
-        }
+        this.state = {
+          name: ""
+        };
     }
 
-    // Set state with the new value of the input field
     OnchangeHandler = e => {
         this.setState({
-            name: e.target.value
+          name: e.target.value
         });
-    };
+      };
 
     // Get the name of the student from the form state
     OnsubmitHandler = e => {
@@ -23,8 +22,12 @@ export default class StudentForm extends Component {
         
         // The inputed name in a variable
         const studentName = this.state.name
-        console.log(studentName);
-    };
+
+        this.setState({
+            name: ""
+          })
+          this.props.StudentLog(studentName);
+        };
 
 
     render() {
