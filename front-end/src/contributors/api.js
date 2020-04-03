@@ -6,4 +6,10 @@ const getAllContributors = () => {
     return axios.get(`${apiUrl}/contributors`);
 };
 
-export { getAllContributors };
+// Create New Contributors
+const addNewContributor =()=>{
+    return axios.post(`${apiUrl}/contributors`)
+}
+
+
+export { getAllContributors, addNewContributor };

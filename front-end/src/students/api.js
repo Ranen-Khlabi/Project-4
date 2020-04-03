@@ -6,4 +6,9 @@ const getAllStudents = () => {
     return axios.get(`${apiUrl}/students`);
 };
 
-export { getAllStudents };
+// Create students
+const addNewStudent =()=>{
+    return axios.post(`${apiUrl}/students`)
+}
+
+export { getAllStudents, addNewStudent };
