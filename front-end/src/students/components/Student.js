@@ -9,7 +9,7 @@ export default class Student extends Component {
     super(props);
     this.state = {
         StudentLog: false,
-        students:[],
+        students:[]
     };
   }
 
@@ -28,9 +28,24 @@ export default class Student extends Component {
   }
 
   StudentLog = name => {
-    this.setState({
-      StudentLog: true,
-    });
+    const students = this.state.students;
+
+    // find the selected name that enter by student
+    const selectedStudentsName = students.find(
+      student => student.name.toLowerCase() === name.toLowerCase()
+    );
+    //check if the names found
+    if (selectedStudentsName) {
+      //create setStete if found return true
+      this.setState({
+        StudentLog: true
+      });
+    } else {
+      //if the name not found return nothing
+      this.setState({
+        StudentLog: false
+      });
+    }
   };
 
 
