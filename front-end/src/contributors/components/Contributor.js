@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import Books from "../../books/books";
+import Books from "../../books/component/books";
 import ContributorForm from "./ContributorForm";
 import { getAllContributors } from "../api";
+
 
 export default class Contributor extends Component {
     constructor(props) {
@@ -27,9 +28,21 @@ export default class Contributor extends Component {
 
     // Change the state to contributorLogged so books can be rendered
     contributorLogin = name => {
-        this.setState({
-            contributorLogged: true
-        });
+        // get contributors array from state
+        const { contributors } = this.state;
+
+        // Find the selected contributor by the passed name
+        const selectedContributor = contributors.find(
+            con => con.name.toLowerCase() === name.toLowerCase()
+        );
+
+        // check if an contributor is found by name, and change logged to true
+        // to render books
+        if (selectedContributor) {
+            this.setState({
+                contributorLogged: true
+            });
+        }
     };
 
     render() {
