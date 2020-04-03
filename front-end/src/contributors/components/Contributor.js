@@ -11,7 +11,8 @@ export default class Contributor extends Component {
         // By default theres no Contributor logged in, so no books will render
         this.state = {
             contributors: [],
-            currentContributorBooks: []
+            currentContributorBooks: [],
+            contributorLogged: false
         };
     }
 
@@ -46,13 +47,17 @@ export default class Contributor extends Component {
                     selectedContributor.name.toLowerCase()
             );
 
+            // Since an contributor is authenticated by name the state
+            // will hold its books and logged state is true
             this.setState({
-                currentContributorBooks: contributorBooks
+                currentContributorBooks: contributorBooks,
+                contributorLogged: true
             });
         } else {
             // If no contributor is found by name don't render any books
             this.setState({
-                currentContributorBooks: []
+                currentContributorBooks: [],
+                contributorLogged: false
             });
         }
     };
@@ -62,6 +67,14 @@ export default class Contributor extends Component {
         this.props.setBooks(books);
     };
 
+    // Set new contributor books array
+    setContributorBooks = books => {
+        this.setState({
+            currentContributorBooks: books
+        });
+    }
+
+
     render() {
 
         return (
@@ -70,6 +83,8 @@ export default class Contributor extends Component {
                 <Books
                     books={this.state.currentContributorBooks}
                     setBooks={this.setBooks}
+                    contributorLogged={this.state.contributorLogged}
+                    setContributorBooks={this.setContributorBooks}
                 />
             </div>
         );

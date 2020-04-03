@@ -1,6 +1,6 @@
 import React from "react";
 import Book from "./book";
-import { getAllBooks } from "./api";
+import { getAllBooks, deleteBookById } from "./api";
 
 
 
@@ -15,6 +15,22 @@ class Books extends React.Component {
         console.log('API ERROR:', error);
       });
   }
+
+  // Delete book by ID
+  deleteBook = id => {
+    deleteBookById(id)
+        .then(res => {
+            // Filter books to execlude the book with the passed id
+            const newBooks = this.props.books.filter(book => book._id !== id);
+
+            // Set the value of the new contributors books array
+            this.props.setContributorBooks(newBooks);
+        })
+        .catch(err => console.log(err));
+}
+
+
+
   render() {
     let allbooks = <h4>No Books!</h4>;
 
@@ -29,7 +45,9 @@ class Books extends React.Component {
             contributor={book.contributor}
             students={book.students}
             id={book._id}
-            key={index} 
+            key={index}
+            contributorLogged={this.props.contributorLogged}
+            deleteBook={this.deleteBook} 
             />
         );
     }); 
@@ -42,5 +60,7 @@ class Books extends React.Component {
     );
   }
 }
+
+
 
 export default Books;

@@ -7,4 +7,10 @@ const getAllBooks = () => {
 };
 
 
-export { getAllBooks}
+// Delete Book By ID
+const deleteBookById = (id) => {
+  return axios.delete(`${apiUrl}/books/${id}`)
+}
+
+
+export { getAllBooks, deleteBookById }
