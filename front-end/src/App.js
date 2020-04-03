@@ -1,31 +1,28 @@
-import React from 'react';
-import './App.css';
-import Books from './books/books';
-import apiURL from './apiConfig';
-
-
+import React from "react";
+import "./App.css";
+import Books from "./books/books";
+import apiURL from "./apiConfig";
 class App extends React.Component {
-    //Creat constructor
     //Definition of an empty array
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
-     books:[]
+    this.state = {
+     books: []
     };
     console.log('API URL', apiURL);
   }
-
-  setBooks =(books)=>{
-    this.setState({ books:books });
+  setBooks = (books) => {
+    this.setState({ books: books });
   }
   render() {
-    return(
+    return (
       <div className ="App">
-      <Books books={this.state.books}
-      setBooks ={this.setBooks} />
+      <Books
+       books = {this.state.books}
+       setBooks = {this.setBooks} 
+       />
       </div>
-        );
-    }
+    );
+  }
 }
-
 export default App;
