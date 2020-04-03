@@ -11,7 +11,7 @@ export default class Contributor extends Component {
         // By default theres no Contributor logged in, so no books will render
         this.state = {
             contributors: [],
-            contributorLogged: false
+            currentContributorBooks: []
         };
     }
 
@@ -26,7 +26,7 @@ export default class Contributor extends Component {
             .catch(err => console.log(err));
     }
 
-    // Change the state to contributorLogged so books can be rendered
+    // Change the state of contributors books so can be rendered
     contributorLogin = name => {
         // get contributors array from state
         const { contributors } = this.state;
@@ -36,29 +36,41 @@ export default class Contributor extends Component {
             con => con.name.toLowerCase() === name.toLowerCase()
         );
 
-        // check if an contributor is found by name, and change logged to true
-        // to render books
+        // check if an contributor is found by name
+        // update the current contributor to render its books
         if (selectedContributor) {
+            // Get all books by the contributor with the passed name
+            const contributorBooks = this.props.books.filter(
+                book =>
+                    book.contributor.name.toLowerCase() ===
+                    selectedContributor.name.toLowerCase()
+            );
+
             this.setState({
-                contributorLogged: true
+                currentContributorBooks: contributorBooks
+            });
+        } else {
+            // If no contributor is found by name don't render any books
+            this.setState({
+                currentContributorBooks: []
             });
         }
     };
 
+    // Pass the books array to parent (App) to keep it in the state
+    setBooks = books => {
+        this.props.setBooks(books);
+    };
+
     render() {
-        // Books will only be rendered if there's an org logged in
-        const books = this.state.contributorLogged ? (
-            <Books 
-            books={this.props.books} 
-            setBooks={this.props.setBooks} />
-        ) : (
-            ""
-        );
 
         return (
             <div>
                 <ContributorForm contributorLogin={this.contributorLogin} />
-                {books}
+                <Books
+                    books={this.state.currentContributorBooks}
+                    setBooks={this.setBooks}
+                />
             </div>
         );
     }
