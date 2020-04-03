@@ -1,9 +1,14 @@
 import React from "react";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 import "./App.css";
-// import Books from "./books/books";
 import apiURL from "./apiConfig";
-// import Contributor from './contributors/components/Contributor';
-// import Student from './students/components/Student';
+import Contributor from './contributors/components/Contributor';
+import Student from './students/components/Student';
 
 
 
@@ -25,24 +30,37 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className ="App">
-
-      <Books
-       books = {this.state.books}
-       setBooks = {this.setBooks} 
-       />
-       <Contributor 
-        books={this.state.books} 
-        setBooks={this.setBooks}
-        />
-        <Student 
-        books={this.state.books} 
-        setBooks={this.setBooks}
-        />
-        
-      </div>
+        <Router>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="/Student">Student</Link>
+          <Link to="/Contributor">Contributor</Link>
+        </nav>
+  
+        <div>
+          <Route
+            path="/Student"
+            render={() => (
+              <Student
+              books={this.state.books} 
+              setPosts={this.setBooks}
+              />
+            )}
+          />
+  
+          <Route
+            path="/Contributor"
+            render={() => (
+              <Contributor
+              books={this.state.books} 
+              setBooks={this.setBooks}
+              />
+            )}
+          />
+        </div>
+        </Router>
     );
-  }
+}
 }
 
 
