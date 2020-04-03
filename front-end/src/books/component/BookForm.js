@@ -27,7 +27,10 @@ export default class BookForm extends Component {
         const { title, description, photo, link } = this.state;
 
         // Create new Book object with the data from inputs
-        const book = { title, description, photo, link };
+        const book = { title, description, photo, link, constributor };
+
+        // Get constributor Id from props
+        const constributor = this.props.constributorId;
 
         // Return all the state values to their defaults
         this.setState({

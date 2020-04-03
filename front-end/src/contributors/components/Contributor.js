@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Books from "../../books/component/books";
 import ContributorForm from "./ContributorForm";
+import BookForm from "../../books/component/BookForm";
 import { getAllContributors } from "../api";
 
 
@@ -12,7 +13,8 @@ export default class Contributor extends Component {
         this.state = {
             contributors: [],
             currentContributorBooks: [],
-            contributorLogged: false
+            contributorLogged: false,
+            contributorId: ""
         };
     }
 
@@ -51,7 +53,8 @@ export default class Contributor extends Component {
             // will hold its books and logged state is true
             this.setState({
                 currentContributorBooks: contributorBooks,
-                contributorLogged: true
+                contributorLogged: true,
+                contributorId: selectedContributor._id
             });
         } else {
             // If no contributor is found by name don't render any books
@@ -80,6 +83,12 @@ export default class Contributor extends Component {
         return (
             <div>
                 <ContributorForm contributorLogin={this.contributorLogin} />
+                {/* Render add book form only when an contributor is logged in */}
+                {this.state.contributorLogged ? (
+                    <BookForm contributorId={this.state.contributorId} />
+                ) : (
+                    ""
+                )}
                 <Books
                     books={this.state.currentContributorBooks}
                     setBooks={this.setBooks}
