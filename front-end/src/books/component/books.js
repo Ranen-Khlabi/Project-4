@@ -39,9 +39,9 @@ class Books extends React.Component {
         return (
            <Book
             title={book.title}
-            photo={ <img src={book.photo}></img>}
+            photo={ <img src={book.photo}/>}
             description={book.description}
-            link={<a href={ book.link}></a>}
+            link={<a href={book.link}>click here to show book</a>}
             contributor={book.contributor}
             students={book.students}
             id={book._id}
