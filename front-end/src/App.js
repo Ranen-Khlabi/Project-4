@@ -7,6 +7,7 @@ import ContributorForm from './contributors/components/ContributorForm';
 import {addNewContributor} from './contributors/api'
 import Student from './students/components/Student';
 import Home from './Home.js';
+import Register from './Register.js'
 import StudentForm from './students/components/StudentForm';
 import { addNewStudent } from './students/api';
 
@@ -35,16 +36,24 @@ class App extends React.Component {
         <div>
         <Router>
         <nav>
-          <Link to="/Home">Home</Link>
-          <Link to="/Student">Student</Link>
+          <Link to="/Home">Home</Link> { ' || ' }
+          <Link to="/Register">Register</Link> { ' || ' }
+          <Link to="/Student">Student</Link> { ' || ' }
           <Link to="/Contributor">Contributor</Link>
         </nav>
   
         <div>
-        <Route
+          <Route
             path="/Home"
             render={() => (
               <Home/>
+            )}
+          />
+
+          <Route
+            path="/Register"
+            render={() => (
+              <Register/>
             )}
           />
 
@@ -69,8 +78,6 @@ class App extends React.Component {
           />
         </div>
         </Router>
-        <ContributorForm/>
-        <StudentForm/>
         </div>
     );
 }
