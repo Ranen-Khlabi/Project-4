@@ -7,8 +7,8 @@ export default class Register extends Component {
     render() {
       return (
         <div>
-          <ContributorForm/>
-          <StudentForm/>
+          <ContributorForm addNewContributor={this.addNewContributor}/>
+          <StudentForm addnewStudent={this.addnewStudent}/>
         </div>
       );
     }

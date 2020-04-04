@@ -29,7 +29,7 @@ export default class ContributorForm extends Component {
 
         // Call the method of the contributor login in the parent
         // and pass it the name of the contributor to be logged in
-        this.props.contributorLogin(contributorName);
+        this.props.addNewContributor(contributorName);
     };
 
     render() {

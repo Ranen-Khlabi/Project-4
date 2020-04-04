@@ -7,8 +7,8 @@ const getAllContributors = () => {
 };
 
 // Create New Contributors
-const addNewContributor =()=>{
-    return axios.post(`${apiUrl}/contributors`)
+const addNewContributor =(name)=>{
+    return axios.post(`${apiUrl}/contributors`, name)
 }
 
 

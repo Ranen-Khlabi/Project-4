@@ -26,7 +26,10 @@ export default class StudentForm extends Component {
         this.setState({
             name: ""
           })
-          this.props.StudentLog(studentName);
+          if ( this.props.StudentLog){
+            this.props.StudentLog(studentName);}
+            else if (this.props.addnewStudent){
+            this.props.addnewStudent(studentName);}
         };
 
 

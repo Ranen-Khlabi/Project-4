@@ -19,15 +19,27 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-     books: [],
-     students: []
+     books: []
     };
+
     console.log('API URL', apiURL);
   }
 
   setBooks = (books) => {
     this.setState({ books: books });
   }
+
+  // Add new student
+  addnewStudent = name => {
+    addNewStudent(name)
+      .then(res => {
+        console.log(res.data.student);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
 
 
   render() {
