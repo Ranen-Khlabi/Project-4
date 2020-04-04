@@ -1,11 +1,16 @@
 * {
   padding: 0;
   margin: 0;
+  text-align: center;
 }
 
 body {
   font-family: sans-serif;
   letter-spacing: 1px;
+}
+
+.home{
+  font-size: 20px;
 }
 
 Link {
@@ -39,7 +44,7 @@ img{
     background: rgba(255, 255, 255, 0.95);
     color: #505050;
   }
-  
+
   nav {
     list-style-type: none;
     margin: 0;

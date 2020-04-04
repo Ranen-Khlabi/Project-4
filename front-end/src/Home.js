@@ -1,13 +1,15 @@
 import React, { Component } from "react";
+import "./App.css";
 
 
 export default class Home extends Component {
     render() {
       return (
-        <div>
-          <h1>Hello People!</h1>
-          <h5>Welcome to my website testing page!</h5>
-          <h4>I made this page</h4>
+        <div className="home">
+          <h1>Hello!</h1>
+          <h5>It is a website that helps <strong>students</strong> or anyone who wants to search
+              <br/>for a reference or book that helps them through this site,<br/>
+              and also anyone who wants to <strong>contribute</strong> to publishing a reference or book.</h5>
         </div>
       );
     }
