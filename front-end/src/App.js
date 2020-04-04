@@ -3,14 +3,9 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 import apiURL from "./apiConfig";
 import Contributor from './contributors/components/Contributor';
-// import ContributorForm from './contributors/components/ContributorForm';
-import {addNewContributor} from './contributors/api'
 import Student from './students/components/Student';
 import Home from './Home.js';
 import Register from './Register.js'
-// import StudentForm from './students/components/StudentForm';
-import { addNewStudent } from './students/api';
-
 
 
 class App extends React.Component {
@@ -28,17 +23,6 @@ class App extends React.Component {
   setBooks = (books) => {
     this.setState({ books: books });
   }
-
-  // Add new student
-  addnewStudent = name => {
-    addNewStudent(name)
-      .then(res => {
-        console.log(res.data.student);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
 
 
 
