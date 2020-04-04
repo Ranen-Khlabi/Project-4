@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { createBook } from "./api"
 
 export default class BookForm extends Component {
     constructor(props) {
@@ -28,6 +29,14 @@ export default class BookForm extends Component {
 
         // Create new Book object with the data from inputs
         const book = { title, description, photo, link, constributor };
+
+        // Make POST request to the API with a new book object
+        createBook({ book })
+            .then(res => {
+                // Add new Book to the Contributor state
+                this.props.addBook(res.data.book);
+            })
+            .catch(err => console.log(err));
 
         // Get constributor Id from props
         const constributor = this.props.constributorId;

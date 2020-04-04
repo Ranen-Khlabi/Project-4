@@ -77,6 +77,16 @@ export default class Contributor extends Component {
         });
     }
 
+    // Add new book to the contributor books state
+    addBook = book => {
+        this.setState({
+            currentContributorBooks: [
+                ...this.state.currentContributorBooks,
+                book
+            ]
+        });
+    };
+
 
     render() {
 
@@ -85,7 +95,10 @@ export default class Contributor extends Component {
                 <ContributorForm contributorLogin={this.contributorLogin} />
                 {/* Render add book form only when an contributor is logged in */}
                 {this.state.contributorLogged ? (
-                    <BookForm contributorId={this.state.contributorId} />
+                    <BookForm
+                    contributorId={this.state.contributorId}
+                    addBook={this.addBook}
+                />
                 ) : (
                     ""
                 )}
