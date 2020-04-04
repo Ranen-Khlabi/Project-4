@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 import apiURL from "./apiConfig";
 import Contributor from './contributors/components/Contributor';
-import ContributorForm from './contributors/components/ContributorForm';
+// import ContributorForm from './contributors/components/ContributorForm';
 import {addNewContributor} from './contributors/api'
 import Student from './students/components/Student';
 import Home from './Home.js';
 import Register from './Register.js'
-import StudentForm from './students/components/StudentForm';
+// import StudentForm from './students/components/StudentForm';
 import { addNewStudent } from './students/api';
 
 
@@ -36,9 +36,10 @@ class App extends React.Component {
         <div>
         <Router>
         <nav>
-          <Link to="/Home">Home</Link> { ' || ' }
-          <Link to="/Register">Register</Link> { ' || ' }
-          <Link to="/Student">Student</Link> { ' || ' }
+        <Link to="/"><img src="https://i.pinimg.com/originals/2c/fc/93/2cfc93d7665f5d7728782700e50596e3.png" height="80px"/></Link>
+          <Link to="/Home">About Us</Link> { '  ' }
+          <Link to="/Register">Register</Link> { '  ' }
+          <Link to="/Student">Student</Link> { '  ' }
           <Link to="/Contributor">Contributor</Link>
         </nav>
   
