@@ -37,16 +37,17 @@ export default class StudentForm extends Component {
     render() {
         return (
             <div>
-                <form className="contact" onSubmit={this.OnsubmitHandler}>
-                    <div className="text">
-                    <label > Student Name: </label>
-                    <input placeholder = " Your Name " 
+                <form method="post" action="" onSubmit={this.OnsubmitHandler}>
+                    <label for="name"> Your Name: </label>
+                    <input type="text" 
+                           className="name" 
+                           name="name"
+                           placeholder = "Type your Name... " 
+                           autocomplete="off" required
                            value = {this.state.name} 
-                           onChange = {this.OnchangeHandler} 
-                    />
+                           onChange = {this.OnchangeHandler} />
                     <br/>
                     <button type="submit">submit</button>
-                    </div>
                 </form>           
             </div>
         )
