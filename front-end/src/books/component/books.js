@@ -32,7 +32,7 @@ class Books extends React.Component {
 
 
   render() {
-    let allbooks = <h4>No Books!</h4>;
+    let allbooks = <p>Enter your name to see the books you have listed!</p>;
 
     if (this.props.books.length > 0) {
         allbooks = this.props.books.map((book, index) => {
@@ -54,7 +54,6 @@ class Books extends React.Component {
   }
     return(
       <>
-        <h3>All Books</h3>
         {allbooks}
       </>
     );

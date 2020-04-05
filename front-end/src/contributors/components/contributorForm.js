@@ -39,10 +39,15 @@ export default class ContributorForm extends Component {
         return (
             <div>
                 <form onSubmit={this.submitHandler}>
-                    <label>Contributor Name: </label>
+                    <label>Your Name: </label>
                     <input
                         value={this.state.name}
-                        onChange={this.changeHandler}>
+                        onChange={this.changeHandler}
+                        type="text" 
+                        className="name" 
+                        name="name"
+                        placeholder = "Type your Name... " 
+                        autocomplete="off" required>
                     </input>
                     <button type="submit">Submit</button>
                 </form>

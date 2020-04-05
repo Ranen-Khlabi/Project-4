@@ -109,7 +109,8 @@ export default class Contributor extends Component {
 
                 {/* Add delete button for contributor */}
                 {this.state.contributorLogged ? ( <>
-                <button onClick={this.deleteContr}>Delete contributor</button>
+                <h2> Hello </h2>
+                <button onClick={this.deleteContr}>Delete Account</button>
 
                 <BookForm
                     contributorId={this.state.contributorId}
