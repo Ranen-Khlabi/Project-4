@@ -30,13 +30,17 @@ class App extends React.Component {
     return (
 
         <div>
+            <header>
+                <h1> WebSite </h1>
+            </header>
+
         <Router>
-        <nav>
-        <Link to="/"><img src="https://i.pinimg.com/originals/2c/fc/93/2cfc93d7665f5d7728782700e50596e3.png" height="80px"/></Link>
-          <Link to="/Home">About Us</Link> { '  ' }
-          <Link to="/Register">Register</Link> { '  ' }
-          <Link to="/Student">Student</Link> { '  ' }
-          <Link to="/Contributor">Contributor</Link>
+        <nav className="link">
+        <Link to="/"><img src="https://prod-cat-files.macmillan.cloud/MediaResources/instructorcatalog/legacy/BFWCatalog/uploadedimages/book-icon.png" height="80px"/></Link>
+          <Link className="link" to="/Home">About us</Link> { '  ' }
+          <Link className="link" to="/Register">Register</Link> { '  ' }
+          <Link className="link" to="/Student">Student</Link> { '  ' }
+          <Link className="link" to="/Contributor">Contributor</Link>
         </nav>
   
         <div>

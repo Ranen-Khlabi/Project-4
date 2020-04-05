@@ -2,35 +2,64 @@
   padding: 0;
   margin: 0;
   text-align: center;
+  box-sizing: (border-box);
 }
 
 body {
-  font-family: sans-serif;
-  letter-spacing: 1px;
+  background-color: white;
+  font-family: helvetica, arial, sans-serif;
+  font-size: 16px;
+	padding-top: 200px;
+	transition: (padding-top .5s ease);
+}
+
+header{
+  width: 100%;
+	height: 240px;
+	background-color: #c22424ea;
+	text-align: center;
+	position: relative;
+	top: -200px;
+	overflow: hidden;
+	transition: (all .5s ease);
+}
+
+h1{
+  font-size: 42px;
+	color: #fff;
+	line-height: 270px;
+	text-transform: uppercase;
+	font-weight: 100;
+	transition: (all .3s ease);
 }
 
 .home{
+  font-size: 34px;
+  text-transform: uppercase;
+  font-weight: 100;
+  line-height: 2;
+  color: #2c3e50;
+}
+
+.link {
+  color: #fff;
+  padding: 5px 50px;
   font-size: 20px;
+	text-decoration: none;
+  border-radius:(2px);
+  box-shadow: (0 0 0 1px #fff);
 }
 
-Link {
+.link:hover {
   text-decoration: none;
-  color: inherit;
-}
-
-Link nav:hover {
-  text-decoration: none;
-}
-
-Link {
-  float: none;
+  color: rgba(128, 128, 128, 0.699);
 }
 
 img{
   float: left;
 }
 
-@media only screen and (min-width: 320px) {
+@media only screen and (min-width: 300px) {
   nav {
     text-align: justify;
     /*requried for justify-vcenter fix*/
@@ -42,21 +71,94 @@ img{
     /*incase the website doesn't accept opacity values*/
     
     background: rgba(255, 255, 255, 0.95);
-    color: #505050;
   }
 
   nav {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color:skyblue;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 10px 16px;
+    bottom: 508px;
+		height: 60px;
+    line-height: 60px;
+		width: 100%;
+    background-color: #c22424ea;
+    position: fixed;
+    top: 0;
+    transition: (all .5s ease);
+  }
+  .link{
+    color: #fff;
+    width: 100%;
+    padding: 5px 2px;
+    font-size: 16px;
     text-decoration: none;
+    border-radius:(2px);
+    box-shadow: (0 0 0 1px #fff);
+    }
+  header{
+    width: 100%;
+    height: 240px;
+    background-color: #c22424ea;
+    text-align: center;
+    position: relative;
+    top: -200px;
+    overflow: hidden;
+    transition: (all .5s ease);
+  }
+  .link:hover {
+    text-decoration: none;
+    color: rgba(128, 128, 128, 0.699);
+  }
+  
+  img{
+    float: left;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  nav {
+    bottom: 508px;
+		height: 60px;
+    line-height: 60px;
+		width: 100%;
+    background-color: #c22424ea;
+    position: fixed;
+    top: 0;
+    transition: (all .5s ease);
+  }
+
+  header{
+    width: 100%;
+    height: 240px;
+    background-color: #c22424ea;
+    text-align: center;
+    position: relative;
+    top: -200px;
+    overflow: hidden;
+    transition: (all .5s ease);
+  }
+  
+  h1{
+    font-size: 42px;
+    color: #fff;
+    line-height: 270px;
     text-transform: uppercase;
+    font-weight: 100;
+    transition: (all .3s ease);
+  }
+  
+  .home{
+    font-size: 34px;
+    text-transform: uppercase;
+    font-weight: 100;
+    line-height: 2;
+    color: #2c3e50;
+  }
+  
+  .link {
+    color: #fff;
+    padding: 5px 50px;
+    font-size: 20px;
+    text-decoration: none;
+    border-radius:(2px);
+    box-shadow: (0 0 0 1px #fff);
   }
   
 }

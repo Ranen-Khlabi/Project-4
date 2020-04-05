@@ -1,0 +1,67 @@
+.contact{
+    background: #DCE9EA;
+    padding: 0;
+    margin: auto;
+    width: 519px;
+    border: 1px solid #c5c5c5;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 150px;
+    margin-right: 380px;
+}
+
+.contact div{
+    margin-bottom: 8px;
+}
+
+.contact label{
+    margin: 10px;
+    font-size: 15px;
+    line-height: 28px;
+    cursor: pointer;
+}
+
+.contact input, .contact textArea{
+    margin-right: 10px;
+    padding: 4px;
+    width: 200px;
+    border-radius: 7px;
+}
+
+.contact textArea{
+    width: 400px;
+    height: 150px;
+}
+
+button{
+    background-color: #73BDC4;
+}
+
+.contact div button input{
+    width: 110px;
+    text-align: center;
+    background: #f2b527;
+    color: #6F8385;
+    font-weight: bold;
+    border: 2px solid #6F8385;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.contact input:focus,
+.contact textArea:focus,
+.contact button input:hover{
+    background-color: #fff;
+    border-color: #7699db;
+}
+
+.contact button input:hover{
+    color: black;
+}
+
+.text{
+    margin-right: 10px;
+    margin-top: 10px;
+    font-size: 9pt;
+    
+}

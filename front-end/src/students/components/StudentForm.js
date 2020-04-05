@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import "./Student.css";
 
 
 
@@ -36,15 +37,16 @@ export default class StudentForm extends Component {
     render() {
         return (
             <div>
-                <form onSubmit={this.OnsubmitHandler}>
-
+                <form className="contact" onSubmit={this.OnsubmitHandler}>
+                    <div className="text">
                     <label > Student Name: </label>
-                    <input placeholder = "Write your name " 
+                    <input placeholder = " Your Name " 
                            value = {this.state.name} 
                            onChange = {this.OnchangeHandler} 
                     />
+                    <br/>
                     <button type="submit">submit</button>
-
+                    </div>
                 </form>           
             </div>
         )
