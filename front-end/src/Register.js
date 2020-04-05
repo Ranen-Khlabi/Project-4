@@ -35,6 +35,7 @@ export default class Register extends Component {
         <div>
             <h4> HELLO <br/> Register with us :) </h4>
             <StudentForm addnewStudent={this.addnewStudent}/>
+            <br/>
             <ContributorForm addNewContributor={this.addNewContributor}/>
         </div>
       );

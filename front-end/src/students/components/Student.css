@@ -83,7 +83,7 @@ button[type=submit]:active {
         width: 200px;
         height: auto;
         overflow: hidden;
-        background:white;
+        background:rgba(223, 216, 216, 0.397);
         border-radius: 10px;
     }
     form label {
