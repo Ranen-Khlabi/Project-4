@@ -11,4 +11,9 @@ const createNewStudent =(name)=>{
     return axios.post(`${apiUrl}/students`,{student:{name}})
 }
 
-export { getAllStudents, createNewStudent };
+// Delete Students
+const deleteStudentById =(id)=>{
+    return axios.delete(`${apiUrl}/students/${id}`)
+};
+
+export { getAllStudents, createNewStudent, deleteStudentById };

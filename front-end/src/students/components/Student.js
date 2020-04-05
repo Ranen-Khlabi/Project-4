@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Books from "../../books/component/books";
 import StudentForm from "./StudentForm";
-import { getAllStudents} from "../api";
+import { getAllStudents, deleteStudentById} from "../api";
 import { IoIosHeart } from "react-icons/io";
 
 
@@ -77,13 +77,29 @@ export default class Student extends Component {
         StudentLog: false
       });
     }
-  };
+  }
+
+  // Create Delete function
+  deleteStudent = () => {
+    deleteStudentById(this.state.studentLogged)
+        .then(response => {
+            this.setState({
+                StudentLog: false,
+            })
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
 
 
   render() {
     const SelectedBooks = this.state.showAddedBooks ? ( <>
         <h2> Hello <IoIosHeart/> </h2>
         <h1>Registred Posts: </h1>
+
+        {/* Add Delete Button */}
+        <button onClick={this.deleteStudent}>Delete</button>
 
       <Books 
       books={this.props.addedBooks} 
