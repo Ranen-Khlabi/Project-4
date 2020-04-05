@@ -10,7 +10,11 @@ export default class Student extends Component {
     super(props);
     this.state = {
         StudentLog: false,
-        students:[]
+        studentLogged: "",
+        students:[],
+        addedBooks: [],
+        unaddedBooks: [],
+        showAddedBooks: false
     };
   }
 
@@ -22,12 +26,24 @@ export default class Student extends Component {
               //fetch the data from the arry in response 
               students: response.data.students
             });
-            console.log(response.data.students)
+            console.log(response.data.students);
         })
-        //if there  any error 
         .catch(err => console.log(err));
-  }
+    }
 
+    checkBookAdd = (book, username) => {
+        return book.students.find(
+            student => username.toLowerCase() === Student.name.toLowerCase()
+        );
+    };
+
+    toggleShowBooks = e => {
+        this.setState({
+            showAddedBooks: !this.state.showAddedBooks
+        });
+    };
+
+  //create method login
   StudentLog = name => {
     const students = this.state.students;
 
@@ -37,9 +53,23 @@ export default class Student extends Component {
     );
     //check if the names found
     if (selectedStudentsName) {
+        const addedBooks = [];
+        const unaddedBooks = [];
+
+        this.props.books.forEach(book => {
+            if (this.checkBookAdd(book, name)) {
+                addedBooks.push(book);
+            } else {
+                unaddedBooks.push(book);
+            }
+        });
+
       //create setStete if found return true
       this.setState({
-        StudentLog: true
+        StudentLog: true,
+        addedBooks,
+        unaddedBooks,
+        studentLogged: selectedStudentsName._id
       });
     } else {
       //if the name not found return nothing
@@ -51,21 +81,34 @@ export default class Student extends Component {
 
 
   render() {
-    const books = this.state.StudentLog ? ( <>
-        <h2> Hello <IoIosHeart/></h2>
+    const SelectedBooks = this.state.showAddedBooks ? ( <>
+        <h2> Hello <IoIosHeart/> </h2>
+        <h1>Registred Posts: </h1>
+
       <Books 
-      books={this.props.books} 
+      books={this.props.addedBooks} 
       setBooks={this.props.setBooks} 
       />
       </>
     ) : (
-      ""
-    );
+        <>
+                <h1>Unregistered Posts: </h1>
+                <Books
+                    books={this.state.unaddedBooks}
+                    setBooks={this.props.setBooks}
+                />
+            </>
+        );
+
+        const btnText = this.state.showAddedBooks
+            ? "Show Unadded Books"
+            : "Show Added Books";
 
     return (
       <div>
         <StudentForm StudentLog = {this.StudentLog} />
-        {books}
+        <button onClick={this.toggleShowBooks}>{btnText}</button>
+                {SelectedBooks}
       </div>
     );
   }
