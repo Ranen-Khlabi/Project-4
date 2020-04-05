@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { IoIosPersonAdd } from "react-icons/io";
 
 export default class ContributorForm extends Component {
     constructor(props) {
@@ -49,7 +50,7 @@ export default class ContributorForm extends Component {
                         placeholder = "Type your Name... " 
                         autocomplete="off" required>
                     </input>
-                    <button type="submit">Submit</button>
+                    <button type="submit"> submit <IoIosPersonAdd/></button>
                 </form>
             </div>
         );

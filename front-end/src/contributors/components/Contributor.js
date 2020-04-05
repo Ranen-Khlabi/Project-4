@@ -3,6 +3,7 @@ import Books from "../../books/component/books";
 import ContributorForm from "./ContributorForm";
 import BookForm from "../../books/component/BookForm";
 import { getAllContributors, deleteContributor } from "../api";
+import { IoMdCloseCircleOutline, IoIosHeart } from "react-icons/io";
 
 
 export default class Contributor extends Component {
@@ -109,8 +110,8 @@ export default class Contributor extends Component {
 
                 {/* Add delete button for contributor */}
                 {this.state.contributorLogged ? ( <>
-                <h2> Hello </h2>
-                <button onClick={this.deleteContr}>Delete Account</button>
+                <h2> Hello <IoIosHeart/></h2>
+                <button onClick={this.deleteContr}>Delete Account <IoMdCloseCircleOutline/></button>
 
                 <BookForm
                     contributorId={this.state.contributorId}

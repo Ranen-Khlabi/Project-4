@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Books from "../../books/component/books";
 import StudentForm from "./StudentForm";
 import { getAllStudents} from "../api";
+import { IoIosHeart } from "react-icons/io";
 
 
 export default class Student extends Component {
@@ -50,11 +51,13 @@ export default class Student extends Component {
 
 
   render() {
-    const books = this.state.StudentLog ? (
+    const books = this.state.StudentLog ? ( <>
+        <h2> Hello <IoIosHeart/></h2>
       <Books 
       books={this.props.books} 
       setBooks={this.props.setBooks} 
       />
+      </>
     ) : (
       ""
     );

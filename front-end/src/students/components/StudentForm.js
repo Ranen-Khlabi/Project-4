@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./Student.css";
+import { IoIosPersonAdd } from "react-icons/io";
 
 
 
@@ -47,7 +48,7 @@ export default class StudentForm extends Component {
                            value = {this.state.name} 
                            onChange = {this.OnchangeHandler} />
                     <br/>
-                    <button type="submit">submit</button>
+                    <button type="submit">submit <IoIosPersonAdd/></button>
                 </form>           
             </div>
         )
