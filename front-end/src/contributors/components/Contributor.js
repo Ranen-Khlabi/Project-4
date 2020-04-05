@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Books from "../../books/component/books";
 import ContributorForm from "./ContributorForm";
 import BookForm from "../../books/component/BookForm";
-import { getAllContributors } from "../api";
+import { getAllContributors, deleteContributor } from "../api";
 
 
 export default class Contributor extends Component {
@@ -17,6 +17,17 @@ export default class Contributor extends Component {
             contributorId: ""
         };
     }
+
+    deleteContr=(id)=>{
+        deleteContributor(id)
+        .then(response=>{
+            this.setState({
+                contributorLogged: false
+            })
+        })
+        .catch(error => {
+            console.log(error);})
+        }
 
     componentDidMount() {
         // Get all Contributors from API and load them in the state
@@ -93,12 +104,18 @@ export default class Contributor extends Component {
         return (
             <div>
                 <ContributorForm contributorLogin={this.contributorLogin} />
+                <br/>
                 {/* Render add book form only when an contributor is logged in */}
-                {this.state.contributorLogged ? (
-                    <BookForm
+
+                {/* Add delete button for contributor */}
+                {this.state.contributorLogged ? ( <>
+                <button onClick={this.deleteContr}>Delete contributor</button>
+
+                <BookForm
                     contributorId={this.state.contributorId}
                     addBook={this.addBook}
                 />
+                </>
                 ) : (
                     ""
                 )}

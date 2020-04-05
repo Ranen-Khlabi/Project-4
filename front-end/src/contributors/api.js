@@ -11,5 +11,10 @@ const createNewContributor =(name)=>{
     return axios.post(`${apiUrl}/contributors`, {contributor:{name}})
 }
 
+// Delete Contributor by ID
+const deleteContributor = (id) => {
+    return axios.delete(`${apiUrl}/contributors/${id}`);
+  }
 
-export { getAllContributors, createNewContributor };
+
+export { getAllContributors, createNewContributor, deleteContributor };

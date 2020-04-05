@@ -27,8 +27,11 @@ export default class BookForm extends Component {
         // Get the input values from the state
         const { title, description, photo, link } = this.state;
 
+        // Get contributor Id from props
+        const contributor = this.props.contributorId;
+
         // Create new Book object with the data from inputs
-        const book = { title, description, photo, link, constributor };
+        const book = { title, description, photo, link, contributor };
 
         // Make POST request to the API with a new book object
         createBook({ book })
@@ -37,9 +40,6 @@ export default class BookForm extends Component {
                 this.props.addBook(res.data.book);
             })
             .catch(err => console.log(err));
-
-        // Get constributor Id from props
-        const constributor = this.props.constributorId;
 
         // Return all the state values to their defaults
         this.setState({
@@ -60,7 +60,7 @@ export default class BookForm extends Component {
                             name="title"
                             value={this.state.title}
                             onChange={this.chnageHandler}
-                            placeholder="Book Title"
+                            placeholder="The Book Title"
                         />
                     </div>
                     <div>
@@ -69,7 +69,7 @@ export default class BookForm extends Component {
                             name="description"
                             value={this.state.description}
                             onChange={this.chnageHandler}
-                            placeholder="Book Description"
+                            placeholder="The Description"
                         />
                     </div>
                     <div>
@@ -78,7 +78,7 @@ export default class BookForm extends Component {
                             name="place"
                             value={this.state.place}
                             onChange={this.chnageHandler}
-                            placeholder="Book link"
+                            placeholder="The link"
                         />
                     </div>
                     <div>
@@ -87,7 +87,7 @@ export default class BookForm extends Component {
                             name="photo"
                             value={this.state.photo}
                             onChange={this.chnageHandler}
-                            placeholder="Book Photo"
+                            placeholder="Add Photo for book"
                         />
                     </div>
 
