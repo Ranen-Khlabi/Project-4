@@ -3,6 +3,7 @@ const express = require("express");
 //Require Mongoose Model for Contributor
 const Contributor = require('../model/Contributor')
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 //Require Mongoose Model for Book
 const Book = require('../model/Book')
 //Instantiate a Router (min app that only handles routes)
@@ -129,6 +130,52 @@ router.patch("/api/contributors/:id", (req, res) => {
             res.status(204).end();
         })
         .catch(error => res.status(500).json({ error }));
+});
+
+
+
+/**
+ * @method : POST
+ * @route : /api/contributor/login
+ * @action :  Login
+ * @desc    : Login Contributor
+ */
+router.post("/api/contributors/login", (req, res) => {
+  // Get Contributor object from the request body
+  const contributor = req.body.contributor;
+  // validate user inputs
+  if (!contributor.name || !contributor.password) {
+      return res
+          .status(500)
+          .json({ msg: "Please enter your name and password" });
+  }
+  // Authenricate Contributor
+  Contributor.findOne({ name: contributor.name })
+      .then(contributorDoc => {
+          // If the name doesn't exist return error message
+          if (!contributorDoc) {
+              return res.status(500).json({ msg: "Name doesn't exist" });
+          }
+          // Check if the given password matches the one in the database
+          return bcrypt.compare(contributor.password, contributorDoc.password);
+      })
+      .then(same => {
+          // If the 'same' parameter is true that means the password is correct
+          if (same) {
+              // Issue token for authenticated Contributor
+              const payload = { name: contributor.name };
+              const token = jwt.sign(payload, process.env.JWT_SECRET, {
+                  expiresIn: "12h"
+              });
+              // Save the issued token in cookies
+              return res.cookie("contributorToken", token, { httpOnly: true })
+                  .status(200)
+                  .end();
+          }
+          // Case of wrong password
+          return res.status(500).json({ msg: "wrong password" });
+      })
+      .catch(err => res.status(500).json({ msg: err.message }));
 });
 
 
