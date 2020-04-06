@@ -2,10 +2,26 @@
 const express = require("express");
 //Require Mongoose Model for Contributor
 const Contributor = require('../model/Contributor')
+const bcrypt = require("bcrypt");
 //Require Mongoose Model for Book
 const Book = require('../model/Book')
 //Instantiate a Router (min app that only handles routes)
 const router = express.Router();
+
+
+const saveContributor = (contributor, res) => {
+  // Hash the password before saving the Contributor to the database
+  bcrypt
+      .hash(contributor.password, 10)
+      .then(hashedPassword => {
+          // Replace the plain password with the hashed password
+          contributor.password = hashedPassword;
+          // Create new Contributor in the database
+          return Contributor.create(contributor);
+      })
+      .then(contributor => res.status(201).json({ contributor :{contributor: contributor.name}}))
+      .catch(err => res.status(500).json({ msg: err.message }));
+};
 
 
 
@@ -66,10 +82,19 @@ router.get('/api/contributors/:id', (req, res) => {
  * @desc    Create a new contributors
  */
 router.post("/api/contributors", (req, res) => {
-    // Add the contributors recieved from the request body to the database
-    Contributor.create(req.body.contributor)
-        .then(contributor => res.status(201).json({ contributor }))
-        .catch(error => res.status(500).json({ error }));
+    // Get the Contributor object from the request body
+    const newContributor = req.body.contributor;
+    // Check if the name already exists
+    Contributor.findOne({ name: newContributor.name })
+        .then(contributor => {
+            if (contributor) {
+                return res.status(500).json({ msg: "Name already exists." });
+            } else {
+                // In case the name is not already used save the new Contributor.
+                saveContributor(newContributor, res);
+            }
+        })
+        .catch(err => res.status(500).json({ msg: err.message }));
 });
 
 
