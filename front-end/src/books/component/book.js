@@ -24,7 +24,7 @@ class Book extends React.Component {
   };
 
   //can edeit book by contributor
-  editBook = book => {
+  editBook = (id, book) => {
     this.props.editBook(id, book);
   };
 
@@ -54,7 +54,7 @@ class Book extends React.Component {
                 <h3>The Book descrip</h3>
                 <p>{this.props.description}</p>
                 <h3>The Book Link</h3>
-                <p>{this.props.link}</p>
+                <p><a href={this.props.link}>click here</a></p>
                 <p>{this.props.contributor.name}</p>
 
                 {allStudents}

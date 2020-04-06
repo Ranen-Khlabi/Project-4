@@ -16,5 +16,10 @@ const createBook = (book) => {
   return axios.post(`${apiUrl}/books`, book);
 }
 
+// Edit book by id
+const editBookById = (id, updatedBook) => {
+  return axios.patch(`${apiUrl}/books/${id}`, { posts: updatedBook });
+};
 
-export { getAllBooks, deleteBookById, createBook }
+
+export { getAllBooks, deleteBookById, createBook, editBookById  }

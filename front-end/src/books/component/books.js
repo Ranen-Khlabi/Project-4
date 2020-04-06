@@ -29,6 +29,28 @@ class Books extends React.Component {
         .catch(err => console.log(err));
 }
 
+//edit book by id
+editBook = (id, book) => {
+  const indexOfBookToUpdate = this.props.books.findIndex(
+    book => book._id === id
+  );
+  // assign indexOfBookToUpdate to oldBook
+  const oldBook = this.props.books[indexOfBookToUpdate];
+  const { title, description, photo, link } = book;
+  
+  const newArray = [...this.props.books];
+  // use splice to set the change
+  newArray.splice(indexOfBookToUpdate, 1, {
+    ...oldBook,
+    title,
+    link,
+    photo,
+    description
+  });
+  //props the method and take parmeter newArray to use
+  this.props.setContributorBooks(newArray);
+};
+
 
 
   render() {
@@ -39,15 +61,16 @@ class Books extends React.Component {
         return (
            <Book
             title={book.title}
-            photo={ <img src={book.photo}/>}
+            photo={book.photo}
             description={book.description}
-            link={<a href={book.link}>click here to show book</a>}
+            link={book.link}
             contributor={book.contributor}
             students={book.students}
             id={book._id}
             key={index}
             contributorLogged={this.props.contributorLogged}
             deleteBook={this.deleteBook} 
+            editBook={this.editBook}
             />
         );
     }); 
