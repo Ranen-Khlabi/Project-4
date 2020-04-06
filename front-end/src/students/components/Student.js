@@ -31,9 +31,9 @@ export default class Student extends Component {
         .catch(err => console.log(err));
     }
 
-    checkBookAdd = (book, username) => {
+    checkBookAdd = (book, studentId) => {
         return book.students.find(
-            student => username.toLowerCase() === student.name.toLowerCase()
+            student => student._id === studentId
         );
     };
 
@@ -42,6 +42,60 @@ export default class Student extends Component {
             showAddedBooks: !this.state.showAddedBooks
         });
     };
+
+    // Get the name of the student by the ID
+  getStudentname = studentId => {
+    return this.state.students.find(student => student._id === studentId);
+  };
+
+  // Method to register a Student to a Book and add it to the list of their registered
+  // and removing it from the list of unregistered books
+  selectBook = bookId => {
+    // Remove the book by id from the unadded books
+    const unaddedBooks = this.state.unaddedBooks.filter(
+      book => book._id !== bookId
+    );
+
+    // Get the new book that the student registered for
+    const book = this.state.unaddedBooks.find(book => book._id === bookId);
+
+    // Get the current students name and push it to the list of students
+    // registered for the selected Book
+    const book = this.getStudentname(this.state.studentLogged);
+    book.students.push(student);
+
+    const addedBooks = [...this.state.addedBooks, book];
+
+    // Set the changes in both registered and unregistered student books
+    this.setState({
+      addedBooks,
+      unaddedBooks
+    });
+  };
+
+    // Method unregister to remove the book from the list of student added
+  leaveBook = bookId => {
+    // Remove the book by id from the added books
+    const addedBooks = this.state.addedBooks.filter(
+      book => book._id !== bookId
+    );
+
+    // Get the remove book that the student selected
+    const book = this.state.addedBooks.find(book => book._id === bookId);
+
+    // Get the current student name and push it to the list of students unregistered for the selected book
+    const student = this.getStudentname(this.state.studentLogged);
+    book.students.push(student);
+
+    // After remove the student from the post of book, remove the book from the list registered books
+    const unaddedBooks = [...this.state.unaddedBooks, book];
+
+    // Set the changes in both registered and unregistered student books
+    this.setState({
+      unaddedBooks,
+      addedBooks
+    });
+  };
 
   //create method login
   StudentLog = name => {
@@ -109,20 +163,27 @@ export default class Student extends Component {
   render() {
     const SelectedBooks = this.state.showAddedBooks ? ( <>
         <h2> Hello <IoIosHeart/> </h2>
-
+        
         {/* Add Delete Button */}
         <button onClick={this.deleteStudent}>Delete</button>
 
+        {/* Added book */}
       <Books 
       books={this.props.addedBooks} 
       setBooks={this.props.setBooks} 
+      studentId={this.state.studentLogged}
+      leaveBook={this.leaveBook}
       />
       </>
     ) : (
         <>
+
+        {/* unadded book */}
         <Books
         books={this.state.unaddedBooks}
         setBooks={this.props.setBooks}
+        studentId={this.state.studentLogged}
+        selectBook={this.selectBook}
         />
         </>
         );
@@ -133,6 +194,7 @@ export default class Student extends Component {
 
     return (
       <div>
+
         <StudentForm StudentLog = {this.StudentLog} />
         <button onClick={this.toggleShowBooks}>{btnText}</button>
                 {SelectedBooks}
