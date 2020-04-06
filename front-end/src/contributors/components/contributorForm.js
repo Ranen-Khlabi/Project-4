@@ -35,7 +35,7 @@ export default class ContributorForm extends Component {
         if ( this.props.contributorLogin){
             this.props.contributorLogin(contributor);}
             else if (this.props.addnewcontributor){
-            this.props.addnewcontributor(contributor);}
+            this.props.addnewContr(contributor);}
           };
 
     render() {

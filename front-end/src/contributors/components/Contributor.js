@@ -15,7 +15,8 @@ export default class Contributor extends Component {
             contributors: [],
             currentContributorBooks: [],
             contributorLogged: false,
-            contributorId: ""
+            contributorId: "",
+            contributorToken: localStorage.getItem("contributorToken")
         };
     }
 
@@ -30,13 +31,30 @@ export default class Contributor extends Component {
             .catch(err => console.log(err));
     }
 
+    // Logout Contributor
+    logout = () => {
+        this.setState({
+            contributorLogged: false,
+            contributorId: "",
+            currentContributorPosts: "",
+            contributorToken: ""
+        });
+
+        // Clear the JWT fron Local Storage
+        localStorage.removeItem("contributorToken");
+    }
+
     // Try to Login contributor with the submitted data
     authenticateContributor = async contributor => {
         try{
             const res = await contributorLogin(contributor);
+
+            // Store the Recieved JWT in Local Storage
+            localStorage.setItem("contributorToken", res.data.token);
             this.setState({
                 contributorLogged: true,
-                contributorId: res.data.contributor.id
+                contributorId: res.data.contributor.id,
+                contributorToken: localStorage.getItem("contributorToken")
             });
 
             return true
@@ -98,13 +116,16 @@ export default class Contributor extends Component {
 
     // Delet contributor
     deleteContr=()=>{
-        deleteContributor(this.state.contributorId)
+        deleteContributor(this.state.contributorId, this.state.contributorToken)
         .then(response=>{
             this.setState({
                 contributorLogged: false,
                 currentContributorBooks: [],
-                contributorId: ""
+                contributorId: "",
+                contributorToken: ""
             })
+            // Remove JWT from Local Storage
+            localStorage.removeItem("contributorToken");
         })
         .catch(error => {
             console.log(error);})
@@ -115,9 +136,12 @@ export default class Contributor extends Component {
 
         return (
             <div>
-                <ContributorForm contributorLogin={this.contributorLogin} />
+                { this.state.contributorLogged
+                    ? <button onClick={this.logout}>Logout</button>
+                    : <ContributorForm contributorLogin={this.contributorLogin} />
+                }
+                
                 <br/>
-                {/* Render add book form only when an contributor is logged in */}
 
                 {/* Add delete button for contributor */}
                 {this.state.contributorLogged ? ( <>

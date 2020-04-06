@@ -28,6 +28,16 @@ class Book extends React.Component {
     this.props.editBook(id, book);
   };
 
+    // Method to resgiter a User to a book by ID
+  selectBook = () => {
+    this.props.selectBook(this.props.id);
+  };
+    
+      // Method to unresgiter
+  leaveBook = () => {
+    this.props.leaveBook(this.props.id);
+  };
+
 
     render() {
         // Delete button that appears if the contributor that made the book
@@ -37,7 +47,21 @@ class Book extends React.Component {
             <button onClick={this.deleteBook}>Delete Book</button>
             <button onClick={this.updateBook}>Edit</button>
             </div>
-        ):( 
+        ) : ( 
+         ""
+        );
+
+        // Button to display for a student and if they click they can join the book
+        const joinBookButton = this.props.selectBook ? (
+        <button onClick={this.selectBook}>Join</button>
+        ) : (
+         ""
+        );
+  
+        // button to remove the book that has resgiter before
+         const leaveBookButton = this.props.leaveBook ? (
+        <button onClick={this.leaveBook}>Leave</button>
+        ) : (
          ""
         );
 
@@ -59,6 +83,8 @@ class Book extends React.Component {
 
                 {allStudents}
                 {buttons}
+                {joinBookButton}
+                {leaveBookButton}
                 
                 {this.state.editForm ? (
                 <BookForm 

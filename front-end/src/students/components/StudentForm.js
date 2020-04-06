@@ -24,12 +24,13 @@ export default class StudentForm extends Component {
         e.preventDefault();
         
         // The inputed name in a variable
-        const student = {name: this.state.name, password: this.state.password},
+        const student = { name: this.state.name, password: this.state.password }
 
         this.setState({
             name: "",
             password: ""
           })
+          
           if ( this.props.StudentLog){
             this.props.StudentLog(student);}
             else if (this.props.addnewStudent){

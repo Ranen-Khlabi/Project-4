@@ -45,9 +45,9 @@ export default class BookForm extends Component {
         // Get contributor Id from props
         const contributor = this.props.contributorId;
 
-
         // Create new Book object with the data from inputs
-        const newBook = { title, description, photo, link, contributor };    
+        const newBook = { title, description, photo, link, contributor };  
+          
     createBook({ book: newBook })
     .then(res => {
         this.props.addBook(res.data.book);

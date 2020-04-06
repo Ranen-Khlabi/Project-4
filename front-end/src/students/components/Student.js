@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Books from "../../books/component/books";
 import StudentForm from "./StudentForm";
-import { getAllStudents, deleteStudentById, loginStudent} from "../api";
+import { getAllStudents, deleteStudentById, loginStudent, logoutStudent} from "../api";
 import { IoIosHeart } from "react-icons/io";
 
 
@@ -14,7 +14,8 @@ export default class Student extends Component {
         students:[],
         addedBooks: [],
         unaddedBooks: [],
-        showAddedBooks: false
+        showAddedBooks: false,
+        studentToken: localStorage.getItem("studentToken")
     };
   }
 
@@ -29,6 +30,20 @@ export default class Student extends Component {
             console.log(response.data.students);
         })
         .catch(err => console.log(err));
+    }
+
+    logout = () => {
+        // logout student
+      this.setState({
+              StudentLog: false,
+              studentLogged: "",
+              addedBooks: [],
+              unaddedBooks: [],
+              studentToken: ""
+            });
+
+            // Clear the JWT fron Local Storage
+             localStorage.removeItem("studentToken");
     }
 
     checkBookAdd = (book, studentId) => {
@@ -62,7 +77,7 @@ export default class Student extends Component {
 
     // Get the current students name and push it to the list of students
     // registered for the selected Book
-    const book = this.getStudentname(this.state.studentLogged);
+    const student = this.getStudentname(this.state.studentLogged);
     book.students.push(student);
 
     const addedBooks = [...this.state.addedBooks, book];
@@ -102,10 +117,15 @@ export default class Student extends Component {
   authenticateStudent = async student => {
     try {
       const res = await loginStudent(student);
+
+      // Store the Recieved JWT in Local Storage
+      localStorage.setItem("studentToken", res.data.token);
+
       this.setState({
         StudentLog: true,
         studentLogged: res.data.student.id,
-        studentName: res.data.student.name
+        studentName: res.data.student.name,
+        studentToken: localStorage.getItem("studentToken")
       });
 
       return true
@@ -149,15 +169,15 @@ export default class Student extends Component {
 
   // Create Delete function
   deleteStudent = () => {
-    deleteStudentById(this.state.studentLogged)
+    deleteStudentById(this.state.studentLogged, this.state.studentToken)
         .then(response => {
             // Create Varible for control to Array for student 
                 // & Create ForLoop to check all index 
                 // if student ID = studentlog & delete one index
                 const books = [...this.state.addedBooks]
                 books.forEach(book => {
-                    const index = book.students.findIndex(studentId => 
-                    this.state.studentLogged === studentId
+                    const index = book.students.findIndex(
+                    studentId => this.state.studentLogged === studentId
                     )
                     book.students.splice(index, 1)
                 })
@@ -165,8 +185,12 @@ export default class Student extends Component {
             this.setState({
                 StudentLog: false,
                 studentLogged: "",
-                addedBooks: books
+                studentToken: "",
+                addedBooks: [],
+                unaddedBooks: []
             })
+            // Remove JWT from Local Storage
+        localStorage.removeItem("studentToken");
         })
         .catch(error => {
             console.log(error)
@@ -177,9 +201,6 @@ export default class Student extends Component {
   render() {
     const SelectedBooks = this.state.showAddedBooks ? ( <>
         <h2> Hello <IoIosHeart/> </h2>
-        
-        {/* Add Delete Button */}
-        <button onClick={this.deleteStudent}>Delete</button>
 
         {/* Added book */}
       <Books 
@@ -208,8 +229,14 @@ export default class Student extends Component {
 
     return (
       <div>
-
+          {this.state.StudentLog ? (
+          <>
+              <button onClick={this.deleteStudent}>Delete Student</button>
+              <button onClick={this.logout}>Logout</button>
+          </>
+      ) : (
         <StudentForm StudentLog = {this.StudentLog} />
+      )}
         <button onClick={this.toggleShowBooks}>{btnText}</button>
                 {SelectedBooks}
       </div>

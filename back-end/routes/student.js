@@ -4,6 +4,8 @@ const express = require("express");
 const Student = require("../model/Student")
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+// Autherization Middleware 
+const auth = require('../middlewares/studentAuth');
 //Instantiate a Router (min app that only handles routes)
 const router = express.Router();
 
@@ -119,7 +121,7 @@ router.post("/api/students", (req, res) => {
  * @action  UPDATE
  * @desc    Update a student by ID
  */
-router.patch("/api/students/:id", (req, res) => {
+router.patch("/api/students/:id", auth, (req, res) => {
   // Find the student with the passed ID
   Student.findById(req.params.id)
     .then(student => {
@@ -183,11 +185,8 @@ router.post("/api/students/login", (req, res) => {
               const token = jwt.sign(payload, process.env.JWT_SECRET, {
                   expiresIn: "12h"
               });
-              // Save the issued token in cookies
-              return res.cookie("studentToken", token, { httpOnly: true })
-                  .status(200)
-                  .json({student: {name: student.name, id: studentId}})
-                  .end();
+              // Respond With the Generated JWT and Student object
+              return res.status(200).json({student:{name: student.name, id: studentId}, token});
           }
           // Case of wrong password
           return res.status(500).json({ msg: "Wrong password" });
@@ -203,7 +202,7 @@ router.post("/api/students/login", (req, res) => {
  * @action  : Destory
  * @desc    : delete an student by student ID
  */
-router.delete("/api/students/:id", (req, res) => {
+router.delete("/api/students/:id", auth, (req, res) => {
   Student.findById(req.params.id)
     .then(student => {
       if (student) {

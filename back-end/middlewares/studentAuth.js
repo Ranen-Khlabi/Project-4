@@ -4,8 +4,8 @@ const jwt = require("jsonwebtoken");
 
 // Autherization middleware function that is used with all protected route
 const studentAuth = (req, res, next) => {
-    // Get the token from the client cookie
-    const token = req.cookies.studentToken ;
+    // Get the token from the client 
+    const token = req.header('x-auth-studentToken');
     // If there's no token in the requster cookie, Unauthorize access
     if (!token) {
         return res.status(401).json({ msg: "Unauthorized: No token provided" });
