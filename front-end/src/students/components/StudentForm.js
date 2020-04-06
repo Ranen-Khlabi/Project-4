@@ -8,13 +8,14 @@ export default class StudentForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          name: ""
+          name: "",
+          password: ""
         };
     }
 
     OnchangeHandler = e => {
         this.setState({
-          name: e.target.value
+          [e.target.name]: e.target.value
         });
       };
 
@@ -23,15 +24,16 @@ export default class StudentForm extends Component {
         e.preventDefault();
         
         // The inputed name in a variable
-        const studentName = this.state.name
+        const student = {name: this.state.name, password: this.state.password},
 
         this.setState({
-            name: ""
+            name: "",
+            password: ""
           })
           if ( this.props.StudentLog){
-            this.props.StudentLog(studentName);}
+            this.props.StudentLog(student);}
             else if (this.props.addnewStudent){
-            this.props.addnewStudent(studentName);}
+            this.props.addnewStudent(student);}
         };
 
 
@@ -41,11 +43,18 @@ export default class StudentForm extends Component {
                 <form method="post" action="" onSubmit={this.OnsubmitHandler}>
                     <label for="name"> Your Name: </label>
                     <input type="text" 
-                           className="name" 
                            name="name"
                            placeholder = "Type your Name... " 
                            autocomplete="off" required
                            value = {this.state.name} 
+                           onChange = {this.OnchangeHandler} />
+
+                    <label> Your Password: </label>
+                    <input type="password"  
+                           name="name"
+                           placeholder = "Type your Password... " 
+                           autocomplete="off" required
+                           value = {this.state.password} 
                            onChange = {this.OnchangeHandler} />
                     <br/>
                     <button type="submit">submit <IoIosPersonAdd/></button>
