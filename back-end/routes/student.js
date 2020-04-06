@@ -26,6 +26,23 @@ const saveStudent = (student, res) => {
 
 /**
  * @method : GET
+ * @route  : /api/students/logout
+ * @action :  Logout
+ * @desc   : logout students
+ */
+router.get('/api/students/logout', (req,res) => {
+  if(req.cookies.studentToken){
+      res.status(200).clearCookie("studentToken").end();
+  }else{
+      res.status(500).json({error: 'Failed to logout'})
+  }
+})
+
+
+
+
+/**
+ * @method : GET
  * @route : /api/students
  * @action :  index
  * @desc    : get all student
