@@ -16,4 +16,13 @@ const deleteStudentById =(id)=>{
     return axios.delete(`${apiUrl}/students/${id}`)
 };
 
-export { getAllStudents, createNewStudent, deleteStudentById };
+// Login Student
+const loginStudent = (student) => {
+    return axios.post(`${apiUrl}/students/login`, {student})
+};
+
+export { getAllStudents, 
+         createNewStudent, 
+         deleteStudentById, 
+         loginStudent 
+        };

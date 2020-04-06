@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Books from "../../books/component/books";
 import StudentForm from "./StudentForm";
-import { getAllStudents, deleteStudentById} from "../api";
+import { getAllStudents, deleteStudentById, loginStudent} from "../api";
 import { IoIosHeart } from "react-icons/io";
 
 
@@ -55,6 +55,7 @@ export default class Student extends Component {
     const unaddedBooks = this.state.unaddedBooks.filter(
       book => book._id !== bookId
     );
+  
 
     // Get the new book that the student registered for
     const book = this.state.unaddedBooks.find(book => book._id === bookId);
@@ -97,21 +98,36 @@ export default class Student extends Component {
     });
   };
 
-  //create method login
-  StudentLog = name => {
-    const students = this.state.students;
+  // Make Login Request for the student and check if they are authenticated
+  authenticateStudent = async student => {
+    try {
+      const res = await loginStudent(student);
+      this.setState({
+        StudentLog: true,
+        studentLogged: res.data.student.id,
+        studentName: res.data.student.name
+      });
 
-    // find the selected name that enter by student
-    const selectedStudentsName = students.find(
-      student => student.name.toLowerCase() === name.toLowerCase()
-    );
-    //check if the names found
-    if (selectedStudentsName) {
+      return true
+    }
+    catch (err) {
+       console.log(err);
+    }
+  }
+
+
+  //create method login
+  StudentLog = async student => {
+    // Try Login Request for the submitted Student data
+    const loginSucess = await this.authenticateStudent(student);
+
+    //check if the login is successfull
+    if (loginSucess) {
         const addedBooks = [];
         const unaddedBooks = [];
 
         this.props.books.forEach(book => {
-            if (this.checkBookAdd(book, name)) {
+            if (this.checkBookAdd(book, this.state.studentLogged)) {
                 addedBooks.push(book);
             } else {
                 unaddedBooks.push(book);
@@ -120,13 +136,11 @@ export default class Student extends Component {
 
       //create setStete if found return true
       this.setState({
-        StudentLog: true,
         addedBooks,
-        unaddedBooks,
-        studentLogged: selectedStudentsName._id
+        unaddedBooks
       });
     } else {
-      //if the name not found return nothing
+      //if the student not auth return nothing
       this.setState({
         StudentLog: false
       });

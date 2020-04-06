@@ -18,7 +18,7 @@ const saveStudent = (student, res) => {
           // Create new student in the database
           return Student.create(student);
       })
-      .then(student => res.status(201).json({ student: {name: student.name}}))
+      .then(student => res.status(201).json({ student: {name: student.name, id: student._id}}))
       .catch(err => res.status(500).json({ msg: err.message }));
 };
 
@@ -161,6 +161,9 @@ router.post("/api/students/login", (req, res) => {
           .status(500)
           .json({ msg: "Please enter your name and password" });
   }
+  // Var to hold student id if found
+  let studentId = 0;
+
   // Authenricate student
   Student.findOne({ name: student.name })
       .then(studentDoc => {
@@ -168,6 +171,7 @@ router.post("/api/students/login", (req, res) => {
           if (!studentDoc) {
               return res.status(500).json({ msg: "Name doesn't exist" });
           }
+          studentId = studentDoc._id;
           // Check if the given password matches the one in the database
           return bcrypt.compare(student.password, studentDoc.password);
       })
@@ -182,6 +186,7 @@ router.post("/api/students/login", (req, res) => {
               // Save the issued token in cookies
               return res.cookie("studentToken", token, { httpOnly: true })
                   .status(200)
+                  .json({student: {name: student.name, id: studentId}})
                   .end();
           }
           // Case of wrong password

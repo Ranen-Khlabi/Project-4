@@ -20,7 +20,7 @@ const saveContributor = (contributor, res) => {
           // Create new Contributor in the database
           return Contributor.create(contributor);
       })
-      .then(contributor => res.status(201).json({ contributor :{contributor: contributor.name}}))
+      .then(contributor => res.status(201).json({ contributor :{name: contributor.name, id: contributor._id}}))
       .catch(err => res.status(500).json({ msg: err.message }));
 };
 
