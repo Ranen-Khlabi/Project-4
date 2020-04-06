@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Books from "../../books/component/books";
 import ContributorForm from "./ContributorForm";
 import BookForm from "../../books/component/BookForm";
-import { getAllContributors, deleteContributor } from "../api";
+import { getAllContributors, deleteContributor, contributorLogin } from "../api";
 import { IoMdCloseCircleOutline, IoIosHeart } from "react-icons/io";
 
 
@@ -30,38 +30,46 @@ export default class Contributor extends Component {
             .catch(err => console.log(err));
     }
 
+    // Try to Login contributor with the submitted data
+    authenticateContributor = async contributor => {
+        try{
+            const res = await contributorLogin(contributor);
+            this.setState({
+                contributorLogged: true,
+                contributorId: res.data.contributor.id
+            });
+
+            return true
+        }
+        catch(err) {
+            console.log(err);
+        }
+    }
+
     // Change the state of contributors books so can be rendered
-    contributorLogin = name => {
-        // get contributors array from state
-        const { contributors } = this.state;
+    contributorLogin = async contributor => {
+        // Try Login Request for the submitted contributor data
+        const loginSucess = await this.authenticateContributor(contributor);
 
-        // Find the selected contributor by the passed name
-        const selectedContributor = contributors.find(
-            con => con.name.toLowerCase() === name.toLowerCase()
-        );
-
-        // check if an contributor is found by name
         // update the current contributor to render its books
-        if (selectedContributor) {
+        if (loginSucess) {
             // Get all books by the contributor with the passed name
             const contributorBooks = this.props.books.filter(
                 book =>
-                    book.contributor.name.toLowerCase() ===
-                    selectedContributor.name.toLowerCase()
+                book.contributor._id === this.state.contributorId
             );
 
             // Since an contributor is authenticated by name the state
-            // will hold its books and logged state is true
+            // will hold its books
             this.setState({
-                currentContributorBooks: contributorBooks,
-                contributorLogged: true,
-                contributorId: selectedContributor._id
+                currentContributorBooks: contributorBooks
             });
         } else {
             // If no contributor is found by name don't render any books
             this.setState({
                 currentContributorBooks: [],
-                contributorLogged: false
+                contributorLogged: false,
+                contributorId: ""
             });
         }
     };

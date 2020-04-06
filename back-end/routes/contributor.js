@@ -165,6 +165,8 @@ router.post("/api/contributors/login", (req, res) => {
           .status(500)
           .json({ msg: "Please enter your name and password" });
   }
+
+  let contrId = 0;
   // Authenricate Contributor
   Contributor.findOne({ name: contributor.name })
       .then(contributorDoc => {
@@ -172,6 +174,8 @@ router.post("/api/contributors/login", (req, res) => {
           if (!contributorDoc) {
               return res.status(500).json({ msg: "Name doesn't exist" });
           }
+
+          contrId = contributorDoc._id
           // Check if the given password matches the one in the database
           return bcrypt.compare(contributor.password, contributorDoc.password);
       })
@@ -186,6 +190,7 @@ router.post("/api/contributors/login", (req, res) => {
               // Save the issued token in cookies
               return res.cookie("contributorToken", token, { httpOnly: true })
                   .status(200)
+                  .json({contributor: {id: contrId, name: contributor.name}})
                   .end();
           }
           // Case of wrong password

@@ -14,7 +14,16 @@ const addNewContributor =(contributor)=>{
 // Delete Contributor by ID
 const deleteContributor = (id) => {
     return axios.delete(`${apiUrl}/contributors/${id}`);
-  }
+}
+
+// Login Contributor
+const contributorLogin = contributor => {
+    return axios.post(`${apiUrl}/contributors/login`, {contributor})
+}
 
 
-export { getAllContributors, addNewContributor, deleteContributor };
+export { getAllContributors,
+         addNewContributor, 
+         deleteContributor, 
+         contributorLogin 
+        };
