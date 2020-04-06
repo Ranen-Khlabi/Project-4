@@ -33,7 +33,7 @@ export default class Student extends Component {
 
     checkBookAdd = (book, username) => {
         return book.students.find(
-            student => username.toLowerCase() === Student.name.toLowerCase()
+            student => username.toLowerCase() === student.name.toLowerCase()
         );
     };
 
@@ -83,8 +83,21 @@ export default class Student extends Component {
   deleteStudent = () => {
     deleteStudentById(this.state.studentLogged)
         .then(response => {
+            // Create Varible for control to Array for student 
+                // & Create ForLoop to check all index 
+                // if student ID = studentlog & delete one index
+                const books = [...this.state.addedBooks]
+                books.forEach(book => {
+                    const index = book.students.findIndex(studentId => 
+                    this.state.studentLogged === studentId
+                    )
+                    book.students.splice(index, 1)
+                })
+
             this.setState({
                 StudentLog: false,
+                studentLogged: "",
+                addedBooks: books
             })
         })
         .catch(error => {
@@ -96,7 +109,6 @@ export default class Student extends Component {
   render() {
     const SelectedBooks = this.state.showAddedBooks ? ( <>
         <h2> Hello <IoIosHeart/> </h2>
-        <h1>Registred Posts: </h1>
 
         {/* Add Delete Button */}
         <button onClick={this.deleteStudent}>Delete</button>
@@ -108,12 +120,11 @@ export default class Student extends Component {
       </>
     ) : (
         <>
-                <h1>Unregistered Posts: </h1>
-                <Books
-                    books={this.state.unaddedBooks}
-                    setBooks={this.props.setBooks}
-                />
-            </>
+        <Books
+        books={this.state.unaddedBooks}
+        setBooks={this.props.setBooks}
+        />
+        </>
         );
 
         const btnText = this.state.showAddedBooks
