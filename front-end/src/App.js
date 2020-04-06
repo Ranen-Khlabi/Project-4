@@ -31,16 +31,16 @@ class App extends React.Component {
 
         <div>
             <header>
-                <h1> WebSite </h1>
+                <h1> R-Bookstore </h1>
             </header>
 
         <Router>
         <nav className="link">
-        <Link to="/"><img src="https://prod-cat-files.macmillan.cloud/MediaResources/instructorcatalog/legacy/BFWCatalog/uploadedimages/book-icon.png" height="80px"/></Link>
+        <Link to="/"><img src="https://prod-cat-files.macmillan.cloud/MediaResources/instructorcatalog/legacy/BFWCatalog/uploadedimages/book-icon.png" height="100px"/></Link>
           <Link className="link" to="/Home">About us</Link> { '  ' }
           <Link className="link" to="/Register">Register</Link> { '  ' }
-          <Link className="link" to="/Student">Student</Link> { '  ' }
-          <Link className="link" to="/Contributor">Contributor</Link>
+          <Link className="link" to="/Student">Search Book</Link> { '  ' }
+          <Link className="link" to="/Contributor">Contributor?</Link>
         </nav>
   
         <div>
