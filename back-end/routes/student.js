@@ -3,6 +3,7 @@ const express = require("express");
 //Require Mongoose Model for Students
 const Student = require("../model/Student")
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 //Instantiate a Router (min app that only handles routes)
 const router = express.Router();
 
@@ -124,6 +125,52 @@ router.patch("/api/students/:id", (req, res) => {
       res.status(204).end();
     })
     .catch(error => res.status(500).json({ error }));
+});
+
+
+
+/**
+ * @method : POST
+ * @route : /api/students/login
+ * @action :  Login
+ * @desc    : Login Student
+ */
+router.post("/api/students/login", (req, res) => {
+  // Get student object from the request body
+  const student = req.body.student;
+  // validate student inputs
+  if (!student.name || !student.password) {
+      return res
+          .status(500)
+          .json({ msg: "Please enter your name and password" });
+  }
+  // Authenricate student
+  Student.findOne({ name: student.name })
+      .then(studentDoc => {
+          // If the name doesn't exist return error message
+          if (!studentDoc) {
+              return res.status(500).json({ msg: "Name doesn't exist" });
+          }
+          // Check if the given password matches the one in the database
+          return bcrypt.compare(student.password, studentDoc.password);
+      })
+      .then(same => {
+          // If the 'same' parameter is true that means the password is correct
+          if (same) {
+              // Issue token for authenticated student
+              const payload = { name: student.name };
+              const token = jwt.sign(payload, process.env.JWT_SECRET, {
+                  expiresIn: "12h"
+              });
+              // Save the issued token in cookies
+              return res.cookie("studentToken", token, { httpOnly: true })
+                  .status(200)
+                  .end();
+          }
+          // Case of wrong password
+          return res.status(500).json({ msg: "Wrong password" });
+      })
+      .catch(err => res.status(500).json({ msg: err.message }));
 });
 
 
