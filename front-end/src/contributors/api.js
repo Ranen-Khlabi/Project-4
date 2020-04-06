@@ -7,7 +7,7 @@ const getAllContributors = () => {
 };
 
 // Create New Contributors
-const createNewContributor =(contributor)=>{
+const addNewContributor =(contributor)=>{
     return axios.post(`${apiUrl}/contributors`, {contributor})
 }
 
@@ -17,4 +17,4 @@ const deleteContributor = (id) => {
   }
 
 
-export { getAllContributors, createNewContributor, deleteContributor };
+export { getAllContributors, addNewContributor, deleteContributor };

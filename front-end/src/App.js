@@ -6,7 +6,6 @@ import Contributor from './contributors/components/Contributor';
 import Student from './students/components/Student';
 import Home from './Home.js';
 import Register from './Register.js'
-import { createNewStudent } from "./students/api";
 
 
 class App extends React.Component {
@@ -23,9 +22,6 @@ class App extends React.Component {
 
   setBooks = (books) => {
     this.setState({ books: books });
-  }
-  addNewStudent = student => {
-      createNewStudent(student)
   }
 
 

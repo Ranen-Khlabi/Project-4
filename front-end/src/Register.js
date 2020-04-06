@@ -7,9 +7,9 @@ import { createNewStudent } from './students/api';
 
 export default class Register extends Component {
 
-      // Add new student
-  addnewStudent = name => {
-    createNewStudent(name)
+    // Add new student
+    addnewStudent = student => {
+    createNewStudent(student)
       .then(res => {
         console.log(res.data.student);
       })
@@ -19,8 +19,8 @@ export default class Register extends Component {
   };
 
     // Add new contributor
-    addNewContributor = name => {
-        createNewContributor(name)
+    addNewContributor = contributor => {
+        createNewContributor(contributor)
           .then(res => {
             console.log(res.data.contributor);
           })

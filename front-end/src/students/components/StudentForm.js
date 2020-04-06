@@ -51,7 +51,7 @@ export default class StudentForm extends Component {
 
                     <label> Your Password: </label>
                     <input type="password"  
-                           name="name"
+                           name="password"
                            placeholder = "Type your Password... " 
                            autocomplete="off" required
                            value = {this.state.password} 

@@ -6,7 +6,8 @@ export default class ContributorForm extends Component {
         super(props);
 
         this.state = {
-            name: ""
+            name: "",
+            password: ""
         };
     }
 
@@ -21,19 +22,20 @@ export default class ContributorForm extends Component {
     submitHandler = e => {
         e.preventDefault();
         // The inputed name in a variable
-        const contributorName = this.state.name;
+        const contributor = {name: this.state.name, password: this.state.password};
 
         // Return the state to the original so the input field value is cleared
         this.setState({
-            name: ""
+            name: "",
+            password: ""
         });
 
         // Call the method of the contributor login in the parent
         // and pass it the name of the contributor to be logged in
         if ( this.props.contributorLogin){
-            this.props.contributorLogin(contributorName);}
+            this.props.contributorLogin(contributor);}
             else if (this.props.addnewcontributor){
-            this.props.addnewcontributor(contributorName);}
+            this.props.addnewcontributor(contributor);}
           };
 
     render() {
@@ -47,6 +49,16 @@ export default class ContributorForm extends Component {
                         type="text" 
                         name="name"
                         placeholder = "Type your Name... " 
+                        autocomplete="off" required>
+                    </input>
+
+                    <label>Your Password: </label>
+                    <input
+                        value={this.state.password}
+                        onChange={this.changeHandler}
+                        type="password" 
+                        name="password"
+                        placeholder = "Type your Password... " 
                         autocomplete="off" required>
                     </input>
                     <button type="submit"> submit <IoIosPersonAdd/></button>
