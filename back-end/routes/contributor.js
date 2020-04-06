@@ -133,8 +133,10 @@ router.delete("/api/contributors/:id", (req, res) => {
             }
         })
         .then(() => {
-            // If the update succeeded, return 204 and no JSON response
-            res.status(204).end();
+          return Book.deleteMany({contributor:req.params.id})
+        })
+        .then(()=>{
+           res.status(204).end();
         })
         .catch(error => res.status(500).json({ error }));
 });
