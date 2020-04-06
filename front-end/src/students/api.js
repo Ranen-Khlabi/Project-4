@@ -7,8 +7,8 @@ const getAllStudents = () => {
 };
 
 // Create students
-const createNewStudent =(name)=>{
-    return axios.post(`${apiUrl}/students`,{student:{name}})
+const createNewStudent =(student)=>{
+    return axios.post(`${apiUrl}/students`,{student})
 }
 
 // Delete Students

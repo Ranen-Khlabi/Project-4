@@ -13,7 +13,7 @@ export default class ContributorForm extends Component {
     // Set state with the new value of the input field
     changeHandler = e => {
         this.setState({
-            name: e.target.value
+            [e.target.name]: e.target.value
         });
     };
 
@@ -33,7 +33,7 @@ export default class ContributorForm extends Component {
         if ( this.props.contributorLogin){
             this.props.contributorLogin(contributorName);}
             else if (this.props.addnewcontributor){
-            this.props.addnewOrg(contributorName);}
+            this.props.addnewcontributor(contributorName);}
           };
 
     render() {

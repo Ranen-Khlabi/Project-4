@@ -7,8 +7,8 @@ const getAllContributors = () => {
 };
 
 // Create New Contributors
-const createNewContributor =(name)=>{
-    return axios.post(`${apiUrl}/contributors`, {contributor:{name}})
+const createNewContributor =(contributor)=>{
+    return axios.post(`${apiUrl}/contributors`, {contributor})
 }
 
 // Delete Contributor by ID

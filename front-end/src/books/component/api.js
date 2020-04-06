@@ -12,7 +12,7 @@ const deleteBookById = (id) => {
 }
 
 // Create a new Book
-const createBook = (book) => {
+const createBook = book => {
   return axios.post(`${apiUrl}/books`, book);
 }
 

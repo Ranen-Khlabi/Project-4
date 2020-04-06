@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { createBook } from "./api"
+import { createBook, editBookById } from "./api"
 
 export default class BookForm extends Component {
     constructor(props) {
@@ -40,19 +40,30 @@ export default class BookForm extends Component {
         // Get the input values from the state
         const { title, description, photo, link } = this.state;
 
+        //create if statment to switch btween add and edit
+        if (this.props.addBook) {
         // Get contributor Id from props
         const contributor = this.props.contributorId;
 
-        // Create new Book object with the data from inputs
-        const book = { title, description, photo, link, contributor };
 
-        // Make POST request to the API with a new book object
-        createBook({ book })
-            .then(res => {
-                // Add new Book to the Contributor state
-                this.props.addBook(res.data.book);
-            })
-            .catch(err => console.log(err));
+        // Create new Book object with the data from inputs
+        const newBook = { title, description, photo, link, contributor };    
+    createBook({ book: newBook })
+    .then(res => {
+        this.props.addBook(res.data.book);
+    })
+        .catch(err => console.log(err));
+    }
+
+    else if (this.props.editBook) {
+      // Create updatedBook that take value from input
+      const updatedBook = { title, description, photo, link };
+      editBookById(this.props.id, updatedBook)
+        .then(res => {
+          this.props.editBook(this.props.id, updatedBook);
+        })
+        .catch(err => console.log(err));
+    }
 
         // Return all the state values to their defaults
         this.setState({

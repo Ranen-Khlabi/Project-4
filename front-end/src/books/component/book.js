@@ -12,7 +12,7 @@ class Book extends React.Component {
       }
 
     // Call parent method to delete book by ID
-    deleteBook = () => {
+  deleteBook = () => {
         this.props.deleteBook(this.props.id)
     }
 
