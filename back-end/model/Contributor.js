@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 
 // Define Article Schema
 const contributorSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: { type: String, required: true, unique: true },
+  password: {type: String, required: true}
 
 });
 
