@@ -13,6 +13,19 @@ export default class BookForm extends Component {
         };
     }
 
+    componentDidMount() {
+        if (this.props.editBook) {
+          //props data from book
+
+          this.setState({
+            title: this.props.title,
+            photo: this.props.photo,
+            description: this.props.description,
+            link: this.props.link
+          });
+        }
+      }
+
     // Set state with new value when an input field is changed
     chnageHandler = e => {
         this.setState({
@@ -75,8 +88,8 @@ export default class BookForm extends Component {
                     <div>
                         <label>Link: </label>
                         <input
-                            name="place"
-                            value={this.state.place}
+                            name="link"
+                            value={this.state.link}
                             onChange={this.chnageHandler}
                             placeholder="The link"
                         />

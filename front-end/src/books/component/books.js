@@ -12,14 +12,14 @@ class Books extends React.Component {
         this.props.setBooks(response.data.book);
       })
       .catch((error) => {
-        console.log('API ERROR:', error);
+        console.log(error);
       });
   }
 
   // Delete book by ID
   deleteBook = id => {
     deleteBookById(id)
-        .then(res => {
+        .then(response => {
             // Filter books to execlude the book with the passed id
             const newBooks = this.props.books.filter(book => book._id !== id);
 
