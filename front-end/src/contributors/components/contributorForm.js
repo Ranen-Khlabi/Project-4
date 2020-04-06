@@ -45,7 +45,6 @@ export default class ContributorForm extends Component {
                         value={this.state.name}
                         onChange={this.changeHandler}
                         type="text" 
-                        className="name" 
                         name="name"
                         placeholder = "Type your Name... " 
                         autocomplete="off" required>

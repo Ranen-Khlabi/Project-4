@@ -19,17 +19,6 @@ export default class Contributor extends Component {
         };
     }
 
-    deleteContr=(id)=>{
-        deleteContributor(id)
-        .then(response=>{
-            this.setState({
-                contributorLogged: false
-            })
-        })
-        .catch(error => {
-            console.log(error);})
-        }
-
     componentDidMount() {
         // Get all Contributors from API and load them in the state
         getAllContributors()
@@ -98,6 +87,20 @@ export default class Contributor extends Component {
             ]
         });
     };
+
+    // Delet contributor
+    deleteContr=()=>{
+        deleteContributor(this.state.contributorId)
+        .then(response=>{
+            this.setState({
+                contributorLogged: false,
+                currentContributorBooks: [],
+                contributorId: ""
+            })
+        })
+        .catch(error => {
+            console.log(error);})
+        }
 
 
     render() {
