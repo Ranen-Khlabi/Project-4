@@ -27,6 +27,22 @@ const saveContributor = (contributor, res) => {
 
 
 /**
+ * @method : GET
+ * @route  : /api/contributors/logout
+ * @action :  Logout
+ * @desc   : logout contributors
+ */
+router.get('/api/contributors/logout', (req,res) => {
+  if(req.cookies.contributorToken){
+      res.status(200).clearCookie("contributorToken").end();
+  }else{
+      res.status(500).json({error: 'Failed to logout'})
+  }
+})
+
+
+
+/**
  * @method  GET
  * @route  /api/contributors
  * @action  INDEX
