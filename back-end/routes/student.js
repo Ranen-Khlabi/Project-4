@@ -2,8 +2,24 @@
 const express = require("express");
 //Require Mongoose Model for Students
 const Student = require("../model/Student")
+const bcrypt = require("bcrypt");
 //Instantiate a Router (min app that only handles routes)
 const router = express.Router();
+
+//method to Add Student to DataBase
+const saveStudent = (student, res) => {
+  // Hash the password before saving the student to the DB
+  bcrypt
+      .hash(student.password, 10)
+      .then(hashedPassword => {
+          // Replace the plain password with the hashed password
+          student.password = hashedPassword;
+          // Create new student in the database
+          return Student.create(student);
+      })
+      .then(student => res.status(201).json({ student: {name: student.name}}))
+      .catch(err => res.status(500).json({ msg: err.message }));
+};
 
 
 
@@ -62,10 +78,19 @@ router.get("/api/students/:id", (req, res) => {
  * @desc    Create a new student
  */
 router.post("/api/students", (req, res) => {
-    // Add the student recieved from the request body to the database
-    Student.create(req.body.student)
-        .then(student => res.status(201).json({ student }))
-        .catch(error => res.status(500).json({ error }));
+    // Get the student object from the request body
+  const newStudent = req.body.student;
+  // Check if the name already exists
+  Student.findOne({ name: newStudent.name })
+      .then(student => {
+          if (student) {
+              return res.status(500).json({ msg: "Name already exists." });
+          } else {
+              // In case the name is not already used save the new student.
+              saveStudent(newStudent, res);
+          }
+      })
+      .catch(err => res.status(500).json({ msg: err.message }));
 });
 
 
