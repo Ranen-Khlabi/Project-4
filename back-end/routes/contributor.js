@@ -22,9 +22,10 @@ const saveContributor = (contributor, res) => {
           // Create new Contributor in the database
           return Contributor.create(contributor);
       })
-      .then(contributor => res.status(201).json({ contributor :{contributor: contributor.name}}))
+      .then(contributor => res.status(201).json({ contributor :{name: contributor.name, id: contributor._id}}))
       .catch(err => res.status(500).json({ msg: err.message }));
 };
+
 
 
 /**
@@ -34,12 +35,12 @@ const saveContributor = (contributor, res) => {
  * @desc   : logout contributors
  */
 router.get('/api/contributors/logout', (req,res) => {
-    if(req.cookies.contributorToken){
-        res.status(200).clearCookie("contributorToken").end();
-    }else{
-        res.status(500).json({error: 'Failed to logout'})
-    }
-  })
+  if(req.cookies.contributorToken){
+      res.status(200).clearCookie("contributorToken").end();
+  }else{
+      res.status(500).json({error: 'Failed to logout'})
+  }
+})
 
 
 
@@ -61,7 +62,6 @@ router.get('/api/contributors', (req, res) => {
       res.status(500).json({ error: error });
     });
   });
-
 
 
 
@@ -166,6 +166,8 @@ router.post("/api/contributors/login", (req, res) => {
           .status(500)
           .json({ msg: "Please enter your name and password" });
   }
+
+  let contrId = 0;
   // Authenricate Contributor
   Contributor.findOne({ name: contributor.name })
       .then(contributorDoc => {
@@ -173,6 +175,8 @@ router.post("/api/contributors/login", (req, res) => {
           if (!contributorDoc) {
               return res.status(500).json({ msg: "Name doesn't exist" });
           }
+
+          contrId = contributorDoc._id
           // Check if the given password matches the one in the database
           return bcrypt.compare(contributor.password, contributorDoc.password);
       })
@@ -187,6 +191,7 @@ router.post("/api/contributors/login", (req, res) => {
               // Save the issued token in cookies
               return res.cookie("contributorToken", token, { httpOnly: true })
                   .status(200)
+                  .json({contributor: {id: contrId, name: contributor.name}})
                   .end();
           }
           // Case of wrong password

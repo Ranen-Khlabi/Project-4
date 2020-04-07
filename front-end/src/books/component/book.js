@@ -1,5 +1,6 @@
 import React from "react";
 import BookForm from "./BookForm";
+import "./book.css";
 
 
 
@@ -78,7 +79,7 @@ class Book extends React.Component {
                 <h3>The Book descrip</h3>
                 <p>{this.props.description}</p>
                 <h3>The Book Link</h3>
-                <p><a href={this.props.link}>click here</a></p>
+                <p>{this.props.link}</p>
                 <p>{this.props.contributor.name}</p>
 
                 {allStudents}

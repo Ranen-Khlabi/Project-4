@@ -103,7 +103,7 @@ leaveBook = bookId => {
             title={book.title}
             photo={book.photo}
             description={book.description}
-            link={book.link}
+            link={<a href={book.link}>click here to show book</a>}
             contributor={book.contributor}
             students={book.students}
             id={book._id}

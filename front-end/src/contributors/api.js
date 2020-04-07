@@ -12,28 +12,13 @@ const addNewContributor =(contributor)=>{
 }
 
 // Delete Contributor by ID
-const deleteContributor = (id, token) => {
-    return axios.delete(
-            `${apiUrl}/contributors/${id}`, 
-            { 
-                headers: 
-                { 
-                    "Content-type": "application/json", 
-                    "x-auth-contributorToken": token 
-                } 
-            }
-        );
-}
+const deleteContributor = (id) => {
+    return axios.delete(`${apiUrl}/contributors/${id}`);
+  }
 
 // Login Contributor
 const contributorLogin = contributor => {
-    return axios.post(
-        `${apiUrl}/contributors/login`,
-         {contributor},
-         {
-            withCredentials: true,
-            credentials: "include"
-        })
+    return axios.post(`${apiUrl}/contributors/login`, {contributor})
 }
 
 // Logout Contributor

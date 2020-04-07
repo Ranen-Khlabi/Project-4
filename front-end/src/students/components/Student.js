@@ -15,7 +15,6 @@ export default class Student extends Component {
         addedBooks: [],
         unaddedBooks: [],
         showAddedBooks: false,
-        studentToken: localStorage.getItem("studentToken")
     };
   }
 
@@ -32,19 +31,6 @@ export default class Student extends Component {
         .catch(err => console.log(err));
     }
 
-    logout = () => {
-        // logout student
-      this.setState({
-              StudentLog: false,
-              studentLogged: "",
-              addedBooks: [],
-              unaddedBooks: [],
-              studentToken: ""
-            });
-
-            // Clear the JWT fron Local Storage
-             localStorage.removeItem("studentToken");
-    }
 
     checkBookAdd = (book, studentId) => {
         return book.students.find(
@@ -117,15 +103,10 @@ export default class Student extends Component {
   authenticateStudent = async student => {
     try {
       const res = await loginStudent(student);
-
-      // Store the Recieved JWT in Local Storage
-      localStorage.setItem("studentToken", res.data.token);
-
       this.setState({
         StudentLog: true,
         studentLogged: res.data.student.id,
-        studentName: res.data.student.name,
-        studentToken: localStorage.getItem("studentToken")
+        studentName: res.data.student.name
       });
 
       return true
@@ -134,7 +115,6 @@ export default class Student extends Component {
        console.log(err);
     }
   }
-
 
   //create method login
   StudentLog = async student => {
@@ -169,28 +149,23 @@ export default class Student extends Component {
 
   // Create Delete function
   deleteStudent = () => {
-    deleteStudentById(this.state.studentLogged, this.state.studentToken)
+    deleteStudentById(this.state.studentLogged)
         .then(response => {
             // Create Varible for control to Array for student 
                 // & Create ForLoop to check all index 
                 // if student ID = studentlog & delete one index
                 const books = [...this.state.addedBooks]
                 books.forEach(book => {
-                    const index = book.students.findIndex(
-                    studentId => this.state.studentLogged === studentId
+                    const index = book.students.findIndex(studentId => 
+                    this.state.studentLogged === studentId
                     )
                     book.students.splice(index, 1)
                 })
-
             this.setState({
                 StudentLog: false,
                 studentLogged: "",
-                studentToken: "",
-                addedBooks: [],
-                unaddedBooks: []
+                addedBooks: books
             })
-            // Remove JWT from Local Storage
-        localStorage.removeItem("studentToken");
         })
         .catch(error => {
             console.log(error)
@@ -198,6 +173,7 @@ export default class Student extends Component {
     }
 
 
+    
   render() {
     const SelectedBooks = this.state.showAddedBooks ? ( <>
         <h2> Hello <IoIosHeart/> </h2>

@@ -15,8 +15,7 @@ export default class Contributor extends Component {
             contributors: [],
             currentContributorBooks: [],
             contributorLogged: false,
-            contributorId: "",
-            contributorToken: localStorage.getItem("contributorToken")
+            contributorId: ""
         };
     }
 
@@ -31,30 +30,14 @@ export default class Contributor extends Component {
             .catch(err => console.log(err));
     }
 
-    // Logout Contributor
-    logout = () => {
-        this.setState({
-            contributorLogged: false,
-            contributorId: "",
-            currentContributorPosts: "",
-            contributorToken: ""
-        });
-
-        // Clear the JWT fron Local Storage
-        localStorage.removeItem("contributorToken");
-    }
 
     // Try to Login contributor with the submitted data
     authenticateContributor = async contributor => {
         try{
             const res = await contributorLogin(contributor);
-
-            // Store the Recieved JWT in Local Storage
-            localStorage.setItem("contributorToken", res.data.token);
             this.setState({
                 contributorLogged: true,
-                contributorId: res.data.contributor.id,
-                contributorToken: localStorage.getItem("contributorToken")
+                contributorId: res.data.contributor.id
             });
 
             return true
@@ -116,16 +99,13 @@ export default class Contributor extends Component {
 
     // Delet contributor
     deleteContr=()=>{
-        deleteContributor(this.state.contributorId, this.state.contributorToken)
+        deleteContributor(this.state.contributorId)
         .then(response=>{
             this.setState({
                 contributorLogged: false,
                 currentContributorBooks: [],
-                contributorId: "",
-                contributorToken: ""
+                contributorId: ""
             })
-            // Remove JWT from Local Storage
-            localStorage.removeItem("contributorToken");
         })
         .catch(error => {
             console.log(error);})

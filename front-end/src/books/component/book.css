@@ -1,0 +1,44 @@
+.book img{
+    width: 110px;
+    height: 150px;
+    border-radius: 20px; 
+    margin: 10px 10px;
+}
+
+.book{
+    width: 300px;
+	height: 200px;
+	background: rgba(14, 105, 133, 0.301);
+	margin: 10px 10px;
+	padding: 2px;
+	box-shadow: 0 0 50px -20px #000;
+    border-radius: 20px;
+    font-family: Sans-Serif; 
+    display: inline-block;
+    color: rgb(158, 35, 35);
+    text-align: center;
+}
+
+button{
+	padding: 15px 30px;
+	width: auto;
+	background: #c02f1cb2;
+	border: none;
+	color: white;
+	cursor: pointer;
+	display: inline-block;
+	clear: right;
+	-webkit-transition: 0.2s ease all;
+	   -moz-transition: 0.2s ease all;
+	    -ms-transition: 0.2s ease all;
+	     -o-transition: 0.2s ease all;
+	        transition: 0.2s ease all;
+}
+
+button:hover {
+	opacity: 0.8;
+}
+
+button:active {
+	opacity: 0.4;
+}

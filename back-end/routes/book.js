@@ -15,7 +15,7 @@ const router = express.Router();
  */
 router.get('/api/books', (req, res) => {
     Book.find()
-    .populate("contributor", "name")
+    // .populate("contributor", "name")
     // .populate("student", "name")
     // Return all book as an Array
     .then((book) => {
@@ -38,7 +38,7 @@ router.get('/api/books', (req, res) => {
  */
 router.get('/api/books/:id', (req, res) => {
     Book.findById(req.params.id)
-    .populate("contributor", "name")
+    // .populate("contributor", "name")
     // .populate("student", "name")
         .then((book) => {
           if (book) {

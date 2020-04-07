@@ -27,13 +27,7 @@ const deleteStudentById =(id, token)=>{
 
 // Login Student
 const loginStudent = (student) => {
-    return axios.post(
-        `${apiUrl}/students/login`,
-         {student},
-         {
-            withCredentials: true,
-            credentials: "include"
-        })
+    return axios.post(`${apiUrl}/students/login`, {student})
 };
 
 // Logout Student
