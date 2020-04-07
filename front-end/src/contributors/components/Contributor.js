@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Books from "../../books/component/books";
 import ContributorForm from "./ContributorForm";
 import BookForm from "../../books/component/BookForm";
-import { getAllContributors, deleteContributor, contributorLogin } from "../api";
+import { getAllContributors, deleteContributor, contributorLogin, contributorLogout } from "../api";
 import { IoMdCloseCircleOutline, IoIosHeart } from "react-icons/io";
 
 

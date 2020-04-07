@@ -16,20 +16,7 @@ class Books extends React.Component {
       });
   }
 
-  // Delete book by ID
-  deleteBook = id => {
-    deleteBookById(id)
-        .then(response => {
-            // Filter books to execlude the book with the passed id
-            const newBooks = this.props.books.filter(book => book._id !== id);
-
-            // Set the value of the new contributors books array
-            this.props.setContributorBooks(newBooks);
-        })
-        .catch(err => console.log(err));
-}
-
-//edit book by id
+  //edit book by id
 editBook = (id, book) => {
   const indexOfBookToUpdate = this.props.books.findIndex(
     book => book._id === id
@@ -49,6 +36,59 @@ editBook = (id, book) => {
   });
   //props the method and take parmeter newArray to use
   this.props.setContributorBooks(newArray);
+};
+
+  // Delete book by ID
+  deleteBook = id => {
+    deleteBookById(id)
+        .then(response => {
+            // Filter books to execlude the book with the passed id
+            const newBooks = this.props.books.filter(book => book._id !== id);
+
+            // Set the value of the new contributors books array
+            this.props.setContributorBooks(newBooks);
+        })
+        .catch(err => console.log(err));
+}
+
+// Get the book by it's id from the books list passed in props
+getBookById = bookId => {
+  return this.props.books.find(book => book._id === bookId);
+};
+
+// Method to register a student to Book by ID
+selectBook = bookId => {
+  // Get the current book that the student is registering for
+  const book = this.getBookById(bookId);
+
+  // Add the new registered studrnt to the book list of students
+  const updatedStudentsList = [...book.students, this.props.studentId];
+
+  // Make an API request to update list of book students
+  editBookById(bookId, { students: updatedStudentsList })
+    .then(res => {
+      // Pass the updated Book ID to parent to set its state
+      this.props.selectBook(bookId);
+    })
+    .catch(err => console.log(err));
+};
+// Method to unregister a Student to Book by ID
+leaveBook = bookId => {
+  // Get the current book that the book is registering for
+  const book = this.getBookById(bookId);
+
+  // remove the new registered student from the book list of students
+  const updatedStudentsList = book.students.filter(
+    studentId => studentId === this.props.studentId
+  );
+
+  // Make an API request to update list of book students
+  editBookById(bookId, { students: updatedStudentsList })
+    .then(res => {
+      // Pass the updated Book ID to parent to set its state
+      this.props.leaveBook(bookId);
+    })
+    .catch(err => console.log(err));
 };
 
 
@@ -71,6 +111,8 @@ editBook = (id, book) => {
             contributorLogged={this.props.contributorLogged}
             deleteBook={this.deleteBook} 
             editBook={this.editBook}
+            selectBook={this.props.selectBook ? this.selectBook : null}
+            leaveBook={this.props.leaveBook ? this.leaveBook : null}
             />
         );
     }); 

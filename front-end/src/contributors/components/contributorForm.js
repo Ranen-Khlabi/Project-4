@@ -34,7 +34,7 @@ export default class ContributorForm extends Component {
         // and pass it the name of the contributor to be logged in
         if ( this.props.contributorLogin){
             this.props.contributorLogin(contributor);}
-            else if (this.props.addnewcontributor){
+            else if (this.props.addnewContr){
             this.props.addnewContr(contributor);}
           };
 
