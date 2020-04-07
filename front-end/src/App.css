@@ -7,10 +7,13 @@
 
 body {
   font-family: helvetica, arial, sans-serif;
-  /* font-size: 16px; */
   padding-top: 200px;
-  padding-bottom: 100px;
+  /* padding-bottom: 100px; */
 	transition: (padding-top .5s ease);
+}
+
+.main{
+  background-color: rgba(209, 208, 202, 0.212);
 }
 
 header{
@@ -27,12 +30,11 @@ header{
 }
 
 h1{
-  font-size: 60px;
+  font-size: 40px;
   font-family: cursive;
   color: rgb(158, 35, 35);
   line-height: 300px;
   padding-right: 600px;
-  text-transform: uppercase;
   font-weight: 100;
   transition: (all .3s ease);
 }
@@ -82,7 +84,7 @@ img{
   float: left;
 }
 
-@media only screen and (min-width: 300px) {
+@media only screen and (min-width: 200px) {
   nav {
     text-align: justify;
     /*requried for justify-vcenter fix*/
@@ -105,7 +107,7 @@ img{
     color: rgb(14, 105, 133);
     width: 100%;
     padding: 5px 2px;
-    font-size: 16px;
+    font-size: 20px;
     text-decoration: none;
     border-radius:(2px);
     box-shadow: (0 0 0 1px);
@@ -116,6 +118,7 @@ img{
     background-image: url("https://image.freepik.com/free-vector/online-library-app-reading-banner_33099-1733.jpg");
     background-repeat: no-repeat;
     background-position: right;
+    background-position: inherit;
     text-align: center;
     position: relative;
     top: -200px;
@@ -138,7 +141,6 @@ img{
 		height: 60px;
     line-height: 60px;
 		width: 100%;
-    /* background-color: #a59a9a96; */
     position: fixed;
     top: 0;
     transition: (all .5s ease);
@@ -146,13 +148,12 @@ img{
 
   header{
     width: 100%;
-    height: 240px;
+    height: 220px;
     background-image: url("https://image.freepik.com/free-vector/online-library-app-reading-banner_33099-1733.jpg");
     background-repeat: no-repeat;
     background-position: right;
-    text-align: center;
     position: relative;
-    top: -200px;
+    top: -220px;
     overflow: hidden;
     transition: (all .5s ease);
   }
@@ -163,7 +164,6 @@ img{
 	  color: rgb(158, 35, 35);
     line-height: 300px;
     padding-right: 600px;
-	  text-transform: uppercase;
 	  font-weight: 100;
   	transition: (all .3s ease);
   }
@@ -178,7 +178,7 @@ img{
   
   .link {
     color: rgb(14, 105, 133);
-    padding: 5px 36px;
+    padding: 5px 25px;
     font-size: 20px;
     text-decoration: none;
     border-radius:(2px);

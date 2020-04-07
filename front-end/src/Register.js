@@ -33,7 +33,7 @@ export default class Register extends Component {
     render() {
       return (
         <div>
-            <h2> HELLO Register with us :) </h2>
+            <h2> Register with us :) </h2>
             <br/>
             <h4>If you want to get a book or reference in any field?</h4>
             <StudentForm addnewStudent={this.addnewStudent}/>

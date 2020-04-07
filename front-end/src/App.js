@@ -29,14 +29,14 @@ class App extends React.Component {
   render() {
     return (
 
-        <div>
+        <div className="main">
             <header>
-                <h1> R-Bookstore </h1>
+                <h1> R-OnlineBooks </h1>
             </header>
 
         <Router>
         <nav className="link">
-        <Link to="/"><img src="https://prod-cat-files.macmillan.cloud/MediaResources/instructorcatalog/legacy/BFWCatalog/uploadedimages/book-icon.png" height="100px"/></Link>
+        <Link to="/"><img src="https://cdn4.iconfinder.com/data/icons/science-and-technology-3-10/65/103-512.png" height="100px"/></Link>
           <Link className="link" to="/Home">About us</Link> { '  ' }
           <Link className="link" to="/Register">Register</Link> { '  ' }
           <Link className="link" to="/Student">Search Book</Link> { '  ' }
