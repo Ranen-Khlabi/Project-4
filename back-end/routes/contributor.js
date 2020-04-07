@@ -3,13 +3,13 @@ const express = require("express");
 //Require Mongoose Model for Contributor
 const Contributor = require('../model/Contributor')
 const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken')
-// Autherization Middleware 
-const auth = require('../middlewares/contributorAuth');;
+const jwt = require('jsonwebtoken');
 //Require Mongoose Model for Book
 const Book = require('../model/Book')
 //Instantiate a Router (min app that only handles routes)
 const router = express.Router();
+
+
 
 
 const saveContributor = (contributor, res) => {
@@ -22,10 +22,9 @@ const saveContributor = (contributor, res) => {
           // Create new Contributor in the database
           return Contributor.create(contributor);
       })
-      .then(contributor => res.status(201).json({ contributor :{name: contributor.name, id: contributor._id}}))
+      .then(contributor => res.status(201).json({ contributor :{contributor: contributor.name}}))
       .catch(err => res.status(500).json({ msg: err.message }));
 };
-
 
 
 /**
@@ -35,12 +34,12 @@ const saveContributor = (contributor, res) => {
  * @desc   : logout contributors
  */
 router.get('/api/contributors/logout', (req,res) => {
-  if(req.cookies.contributorToken){
-      res.status(200).clearCookie("contributorToken").end();
-  }else{
-      res.status(500).json({error: 'Failed to logout'})
-  }
-})
+    if(req.cookies.contributorToken){
+        res.status(200).clearCookie("contributorToken").end();
+    }else{
+        res.status(500).json({error: 'Failed to logout'})
+    }
+  })
 
 
 
@@ -62,6 +61,7 @@ router.get('/api/contributors', (req, res) => {
       res.status(500).json({ error: error });
     });
   });
+
 
 
 
@@ -124,7 +124,7 @@ router.post("/api/contributors", (req, res) => {
  * @action  UPDATE
  * @desc    Update a contributors by ID
  */
-router.patch("/api/contributors/:id", auth, (req, res) => {
+router.patch("/api/contributors/:id", (req, res) => {
     // Find the contributor with the passed ID
     Contributor.findById(req.params.id)
         .then(contributor => {
@@ -132,7 +132,6 @@ router.patch("/api/contributors/:id", auth, (req, res) => {
             if (contributor) {
                 // Update the existing contributor with the new data from the request body
                 return contributor.update(req.body.contributors);
-
             } else {
                 // If no contributor was found by the passed ID, send an error message as response
                 res.status(404).json({
@@ -167,8 +166,6 @@ router.post("/api/contributors/login", (req, res) => {
           .status(500)
           .json({ msg: "Please enter your name and password" });
   }
-
-  let contrId = 0;
   // Authenricate Contributor
   Contributor.findOne({ name: contributor.name })
       .then(contributorDoc => {
@@ -176,8 +173,6 @@ router.post("/api/contributors/login", (req, res) => {
           if (!contributorDoc) {
               return res.status(500).json({ msg: "Name doesn't exist" });
           }
-
-          contrId = contributorDoc._id
           // Check if the given password matches the one in the database
           return bcrypt.compare(contributor.password, contributorDoc.password);
       })
@@ -189,8 +184,10 @@ router.post("/api/contributors/login", (req, res) => {
               const token = jwt.sign(payload, process.env.JWT_SECRET, {
                   expiresIn: "12h"
               });
-              // Return the token and Contributor object in the response
-              return res.status(200).json({contributor: {id: contrId, name: contributor.name}, token});
+              // Save the issued token in cookies
+              return res.cookie("contributorToken", token, { httpOnly: true })
+                  .status(200)
+                  .end();
           }
           // Case of wrong password
           return res.status(500).json({ msg: "wrong password" });
@@ -206,7 +203,7 @@ router.post("/api/contributors/login", (req, res) => {
  * @action  DESTROY
  * @desc    Delete An contributor by contributor ID
  */
-router.delete("/api/contributors/:id", auth, (req, res) => {
+router.delete("/api/contributors/:id", (req, res) => {
     // Find the contributor with the passed ID
     Contributor.findById(req.params.id)
         .then(contributor => {
@@ -232,9 +229,6 @@ router.delete("/api/contributors/:id", auth, (req, res) => {
         })
         .catch(error => res.status(500).json({ error }));
 });
-
-
-
 
 
 

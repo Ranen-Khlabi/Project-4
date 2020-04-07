@@ -4,10 +4,10 @@ const express = require("express");
 const Student = require("../model/Student")
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-// Autherization Middleware 
-const auth = require('../middlewares/studentAuth');
 //Instantiate a Router (min app that only handles routes)
 const router = express.Router();
+
+
 
 //method to Add Student to DataBase
 const saveStudent = (student, res) => {
@@ -20,10 +20,9 @@ const saveStudent = (student, res) => {
           // Create new student in the database
           return Student.create(student);
       })
-      .then(student => res.status(201).json({ student: {name: student.name, id: student._id}}))
+      .then(student => res.status(201).json({ student: {name: student.name}}))
       .catch(err => res.status(500).json({ msg: err.message }));
 };
-
 
 
 /**
@@ -39,7 +38,6 @@ router.get('/api/students/logout', (req,res) => {
       res.status(500).json({error: 'Failed to logout'})
   }
 })
-
 
 
 
@@ -121,7 +119,7 @@ router.post("/api/students", (req, res) => {
  * @action  UPDATE
  * @desc    Update a student by ID
  */
-router.patch("/api/students/:id", auth, (req, res) => {
+router.patch("/api/students/:id", (req, res) => {
   // Find the student with the passed ID
   Student.findById(req.params.id)
     .then(student => {
@@ -163,9 +161,6 @@ router.post("/api/students/login", (req, res) => {
           .status(500)
           .json({ msg: "Please enter your name and password" });
   }
-  // Var to hold student id if found
-  let studentId = 0;
-
   // Authenricate student
   Student.findOne({ name: student.name })
       .then(studentDoc => {
@@ -173,7 +168,6 @@ router.post("/api/students/login", (req, res) => {
           if (!studentDoc) {
               return res.status(500).json({ msg: "Name doesn't exist" });
           }
-          studentId = studentDoc._id;
           // Check if the given password matches the one in the database
           return bcrypt.compare(student.password, studentDoc.password);
       })
@@ -185,8 +179,10 @@ router.post("/api/students/login", (req, res) => {
               const token = jwt.sign(payload, process.env.JWT_SECRET, {
                   expiresIn: "12h"
               });
-              // Respond With the Generated JWT and Student object
-              return res.status(200).json({student:{name: student.name, id: studentId}, token});
+              // Save the issued token in cookies
+              return res.cookie("studentToken", token, { httpOnly: true })
+                  .status(200)
+                  .end();
           }
           // Case of wrong password
           return res.status(500).json({ msg: "Wrong password" });
@@ -202,7 +198,7 @@ router.post("/api/students/login", (req, res) => {
  * @action  : Destory
  * @desc    : delete an student by student ID
  */
-router.delete("/api/students/:id", auth, (req, res) => {
+router.delete("/api/students/:id", (req, res) => {
   Student.findById(req.params.id)
     .then(student => {
       if (student) {
@@ -227,10 +223,6 @@ router.delete("/api/students/:id", auth, (req, res) => {
       res.status.json({ error: error });
     });
 });
-
-
-
-
 
 
 //export the Router 
