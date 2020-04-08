@@ -1,27 +1,31 @@
 .book img{
-    width: 110px;
-    height: 150px;
-    border-radius: 20px; 
-    margin: 10px 10px;
+    width: 200x;
+    height: 250px;
+    border-radius: 10px; 
+	margin: -30px 20px;
+	padding-left: 20px;
 }
 
-.book{
-    width: 320px;
+div .book{
+    width: 800px;
 	height: 300px;
 	background: rgba(14, 105, 133, 0.301);
-	margin: 10px 10px;
-	padding: 2px;
+	margin: 15px 10px;
+	padding: 15px;
 	box-shadow: 0 0 50px -20px #000;
-    border-radius: 20px;
+    border-radius: 30px;
     font-family: Sans-Serif; 
-    display: inline-block;
+    display: block;
     color: black;
-    text-align: center;
+	text-align: center;
+	position: relative;
+	left: 300px;
 }
 
 h3{
 	color: rgb(158, 35, 35);
 	height: 30px;
+	font-size: 20px;
 }
 
 button{
@@ -40,12 +44,16 @@ button{
 	        transition: 0.2s ease all;
 }
 
-div .upbutton{
+button .upbutton{
 	width: 100px;
 	height: 50px;
 	font-size: 10px;
-	padding: 3px;
+	padding-top: 20px;
 	
+}
+
+a{
+	padding-bottom: 20px;
 }
 
 

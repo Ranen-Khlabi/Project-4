@@ -53,7 +53,7 @@ class App extends React.Component {
 
         <div className="main">
             <header>
-                <h1> R-OnlineBooks </h1>
+                <h1> R-OnlineBooks <span>"Choose Book And Stay Home"</span></h1>
             </header>
 
         <Router>
@@ -63,6 +63,12 @@ class App extends React.Component {
           <Link className="link" to="/Student">Search Book</Link> { '  ' }
           <Link className="link" to="/Contributor">Contributor?</Link>
         </nav>
+{/* 
+        <nav className="newnav">
+          <ul>
+            <li><a href="#">Choose Book And Stay Home</a></li>
+          </ul>
+        </nav> */}
   
         <div>
 

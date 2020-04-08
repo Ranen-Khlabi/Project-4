@@ -53,11 +53,11 @@ class Book extends React.Component {
         );
 
         // Button to display for a student and if they click they can vav the book
-        const favBook = this.props.favBook ? (
-        <button className="fav" onClick={this.favBook}>Favorite</button>
-        ) : (
-         ""
-        );
+        // const favBook = this.props.favBook ? (
+        // <button className="fav" onClick={this.favBook}>Favorite</button>
+        // ) : (
+        //  ""
+        // );
   
         // button to remove the book that has resgiter before
          const leaveBookButton = this.props.leaveBook ? (
@@ -77,16 +77,16 @@ class Book extends React.Component {
 
                 <h2>{this.props.title}</h2>
                 <p><img src={this.props.photo} alt={this.props.title}/></p>
-                <h3>The Book description</h3>
+                <h3>Description</h3>
                 <p>{this.props.description}</p>
                 <br/>
-                <h3>The Book Link</h3>
+                <h3>Link</h3>
                 <p><a href={this.props.link}>click here to show book</a></p>
                 {/* <p>{this.props.contributor.name}</p> */}
 
                 {allStudents}
                 {buttons}
-                {favBook}
+                {/* {favBook} */}
                 {leaveBookButton}
                 
                 {this.state.editForm ? (

@@ -207,7 +207,7 @@ export default class Student extends Component {
 
   render() {
     const SelectedBooks = this.state.showAddedBooks ? ( <>
-        <h2> Hello <IoIosHeart/> </h2>
+        <h2 className="hello"> Hello <IoIosHeart/> </h2>
 
         {/* Added book */}
       <Books 

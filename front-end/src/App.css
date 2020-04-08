@@ -47,7 +47,7 @@ h4{
   margin: 0 auto;
 	width: 200px;
 	font-family: 'Lily Script One', cursive;
-	font-size: 15px;
+	font-size: 20px;
 	font-weight: bold;
 	text-align: center;
 	color: rgb(10, 10, 10);
@@ -89,8 +89,14 @@ img{
 }
 
 nav .link{
-  line-height: 200px;
+  line-height: 0px;
 }
+
+h2{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  padding: 15px;
+}
+
 
 @media only screen and (min-width: 200px) {
   nav {
@@ -107,9 +113,9 @@ nav .link{
     line-height: 60px;
 		width: 100%;
     /* background-color: #b4a4a47a; */
-    position: fixed;
+    /* position: fixed;
     top: 0;
-    transition: (all .5s ease);
+    transition: (all .5s ease); */
   }
   .link{
     color: rgb(14, 105, 133);
@@ -145,12 +151,12 @@ nav .link{
 
 @media only screen and (min-width: 1000px) {
   nav {
-    bottom: 508px;
-		height: 60px;
+    bottom: 300px;
+		height: 2px;
     line-height: 60px;
 		width: 100%;
-    position: fixed;
-    top: 0;
+    position: relative;
+    top: -240px;
     transition: (all .5s ease);
   }
 
@@ -167,13 +173,18 @@ nav .link{
   }
   
   h1{
-    font-size: 40px;
+    font-size: 60px;
     font-family: cursive;
 	  color: rgb(158, 35, 35);
-    line-height: 300px;
+    line-height: 200px;
     padding-right: 600px;
 	  font-weight: 100;
   	transition: (all .3s ease);
+  }
+
+  span{
+    color: rgb(14, 105, 133);
+    font-size: 20px;
   }
   
   .home{

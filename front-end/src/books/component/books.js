@@ -95,7 +95,7 @@ class Books extends React.Component {
 
   
   render() {
-    let allbooks = <h4>..</h4>;
+    let allbooks = <h4></h4>;
     if (this.props.books.length > 0) {
       // pass on every books
       allbooks = this.props.books.map((book, index) => {
