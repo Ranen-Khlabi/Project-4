@@ -7,7 +7,7 @@ const getAllBooks = () => {
 };
 
 // Delete Book By ID
-const deleteBookById = (id) => {
+const deleteBookById = id => {
   return axios.delete(`${apiUrl}/books/${id}`)
 }
 
@@ -18,7 +18,7 @@ const createBook = book => {
 
 // Edit book by id
 const editBookById = (id, updatedBook) => {
-  return axios.patch(`${apiUrl}/books/${id}`, { posts: updatedBook });
+  return axios.patch(`${apiUrl}/books/${id}`, { books: updatedBook });
 };
 
 

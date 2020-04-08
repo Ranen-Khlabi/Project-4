@@ -6,8 +6,8 @@
 }
 
 .book{
-    width: 300px;
-	height: 200px;
+    width: 320px;
+	height: 300px;
 	background: rgba(14, 105, 133, 0.301);
 	margin: 10px 10px;
 	padding: 2px;
@@ -15,8 +15,13 @@
     border-radius: 20px;
     font-family: Sans-Serif; 
     display: inline-block;
-    color: rgb(158, 35, 35);
+    color: black;
     text-align: center;
+}
+
+h3{
+	color: rgb(158, 35, 35);
+	height: 30px;
 }
 
 button{
@@ -26,7 +31,7 @@ button{
 	border: none;
 	color: white;
 	cursor: pointer;
-	display: inline-block;
+	display: table-column;
 	clear: right;
 	-webkit-transition: 0.2s ease all;
 	   -moz-transition: 0.2s ease all;
@@ -34,6 +39,15 @@ button{
 	     -o-transition: 0.2s ease all;
 	        transition: 0.2s ease all;
 }
+
+div .upbutton{
+	width: 100px;
+	height: 50px;
+	font-size: 10px;
+	padding: 3px;
+	
+}
+
 
 button:hover {
 	opacity: 0.8;

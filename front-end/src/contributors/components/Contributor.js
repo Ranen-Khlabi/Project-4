@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Books from "../../books/component/books";
 import ContributorForm from "./ContributorForm";
 import BookForm from "../../books/component/BookForm";
-import { getAllContributors, deleteContributor, contributorLogin, contributorLogout } from "../api";
+import { getAllContributors, deleteContributor, contributorLogin } from "../api";
 import { IoMdCloseCircleOutline, IoIosHeart } from "react-icons/io";
 
 
@@ -15,7 +15,8 @@ export default class Contributor extends Component {
             contributors: [],
             currentContributorBooks: [],
             contributorLogged: false,
-            contributorId: ""
+            contributorId: "",
+            contributorToken: localStorage.getItem("contributorToken")
         };
     }
 
@@ -30,14 +31,40 @@ export default class Contributor extends Component {
             .catch(err => console.log(err));
     }
 
+    // Logout contributor
+    logout = () => {
+        this.setState({
+            contributorLogged: false,
+            contributorId: "",
+            currentContributorBooks: "",
+            contributorToken: ""
+        });
+
+        // Clear the JWT fron Local Storage
+        localStorage.removeItem("contributorToken");
+
+        // contributorLogout()
+        //     .then(res => {
+        //         this.setState({
+        //             contributorLogged: false,
+        //             contributorId: "",
+        //             contributorBooks: ""
+        //         });
+        //     })
+        //     .catch(err => console.log(err));
+    }
 
     // Try to Login contributor with the submitted data
     authenticateContributor = async contributor => {
         try{
             const res = await contributorLogin(contributor);
+
+            localStorage.setItem("contributorToken", res.data.token);
+
             this.setState({
                 contributorLogged: true,
-                contributorId: res.data.contributor.id
+                contributorId: res.data.contributor.id,
+                contributorToken: localStorage.getItem("contributorToken")
             });
 
             return true
@@ -49,24 +76,25 @@ export default class Contributor extends Component {
 
     // Change the state of contributors books so can be rendered
     contributorLogin = async contributor => {
-        // Try Login Request for the submitted contributor data
+        // Try Login Request for the submitted Contributor data
         const loginSucess = await this.authenticateContributor(contributor);
 
-        // update the current contributor to render its books
+        // check if the Contributor is authenticated
+        // update the current organization to render its books
         if (loginSucess) {
-            // Get all books by the contributor with the passed name
+            // Get all books by the organization with the ID
             const contributorBooks = this.props.books.filter(
-                book =>
+                book => 
                 book.contributor._id === this.state.contributorId
             );
-
-            // Since an contributor is authenticated by name the state
-            // will hold its books
+            // Since an Contributor is authenticated by name the state
+            // will hold its books.
             this.setState({
-                currentContributorBooks: contributorBooks
+                currentContributorBooks: contributorBooks,
             });
         } else {
-            // If no contributor is found by name don't render any books
+            // If no Contributor is found by name don't render any books
+            // and set logged back to false since it's not authenticated
             this.setState({
                 currentContributorBooks: [],
                 contributorLogged: false,
@@ -99,13 +127,16 @@ export default class Contributor extends Component {
 
     // Delet contributor
     deleteContr=()=>{
-        deleteContributor(this.state.contributorId)
+        deleteContributor(this.state.contributorId, this.state.contributorToken)
         .then(response=>{
             this.setState({
                 contributorLogged: false,
                 currentContributorBooks: [],
-                contributorId: ""
+                contributorId: "",
+                contributorToken: ""
             })
+            // Remove JWT from Local Storage
+            localStorage.removeItem("contributorToken");
         })
         .catch(error => {
             console.log(error);})

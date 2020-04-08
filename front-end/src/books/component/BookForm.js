@@ -59,6 +59,7 @@ export default class BookForm extends Component {
     else if (this.props.editBook) {
       // Create updatedBook that take value from input
       const updatedBook = { title, description, photo, link };
+      
       editBookById(this.props.id, updatedBook)
         .then(res => {
           this.props.editBook(this.props.id, updatedBook);

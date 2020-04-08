@@ -76,9 +76,16 @@ button[type=submit]:active {
 	opacity: 0.4;
 }
 
+.bot{
+	height: 50px;
+	width: 200px;
+	display: list-item;
+	font-size: 15px;
+}
+
 @media only screen and (min-width: 300px) {
     form{
-        margin: 0 auto 0 auto;
+        margin: 0 auto 30px auto;
         padding: 30px;
         width: 200px;
         height: auto;
@@ -99,5 +106,11 @@ button[type=submit]:active {
     }
     button[type=submit] {
         padding: 10px 16px;
-    }
+	}
+	.bot{
+		height: 50px;
+		width: 200px;
+		display: list-item;
+		font-size: 15px;
+	}
 }

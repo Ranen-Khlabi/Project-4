@@ -4,6 +4,8 @@ const express = require("express");
 const Contributor = require('../model/Contributor')
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
+// Autherization Middleware 
+const auth = require('../middlewares/contributorAuth');
 //Require Mongoose Model for Book
 const Book = require('../model/Book')
 //Instantiate a Router (min app that only handles routes)
@@ -124,7 +126,7 @@ router.post("/api/contributors", (req, res) => {
  * @action  UPDATE
  * @desc    Update a contributors by ID
  */
-router.patch("/api/contributors/:id", (req, res) => {
+router.patch("/api/contributors/:id", auth, (req, res) => {
     // Find the contributor with the passed ID
     Contributor.findById(req.params.id)
         .then(contributor => {
@@ -188,11 +190,13 @@ router.post("/api/contributors/login", (req, res) => {
               const token = jwt.sign(payload, process.env.JWT_SECRET, {
                   expiresIn: "12h"
               });
-              // Save the issued token in cookies
-              return res.cookie("contributorToken", token, { httpOnly: true })
-                  .status(200)
-                  .json({contributor: {id: contrId, name: contributor.name}})
-                  .end();
+            //   // Save the issued token in cookies
+            //   return res.cookie("contributorToken", token, { httpOnly: true })
+            //       .status(200)
+            //       .json({contributor: {id: contrId, name: contributor.name}})
+            //       .end();
+                  // Return the token and contributor object in the response
+              return res.status(200).json({contributor: {id: contrId, name: contributor.name}, token});
           }
           // Case of wrong password
           return res.status(500).json({ msg: "wrong password" });
@@ -208,7 +212,7 @@ router.post("/api/contributors/login", (req, res) => {
  * @action  DESTROY
  * @desc    Delete An contributor by contributor ID
  */
-router.delete("/api/contributors/:id", (req, res) => {
+router.delete("/api/contributors/:id", auth, (req, res) => {
     // Find the contributor with the passed ID
     Contributor.findById(req.params.id)
         .then(contributor => {

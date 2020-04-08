@@ -11,7 +11,11 @@ const createNewStudent =(student)=>{
     return axios.post(`${apiUrl}/students`,{student})
 }
 
-// Delete Students
+// Delete student By ID
+// const deleteStudentById =(id)=>{
+//     return axios.delete(`${apiUrl}/students/${id}`)
+// };
+
 const deleteStudentById =(id, token)=>{
     return axios.delete(
         `${apiUrl}/students/${id}`,
@@ -19,16 +23,28 @@ const deleteStudentById =(id, token)=>{
             headers:
             {
                 "Content-type": "application/json",
-                "x-auth-studentToken": token
+                "x-auth-userToken": token
             }
         }
    )
-};
+}
 
 // Login Student
-const loginStudent = (student) => {
-    return axios.post(`${apiUrl}/students/login`, {student})
+const loginStudent = student => {
+    return axios.post(
+        `${apiUrl}/students/login`, 
+        {student},
+        // {
+        //     withCredentials: true,
+        //     credentials: "include"
+        // }
+        )
 };
+
+// // Login Student
+// const loginStudent = (student) => {
+//     return axios.book(`${apiUrl}/students/login`, {student})
+// }
 
 // Logout Student
 const logoutStudent = () => {
@@ -37,7 +53,8 @@ const logoutStudent = () => {
         {
             withCredentials: true,
             credentials: "include"
-        })
+        }
+        )
 };
 
 export { getAllStudents, 

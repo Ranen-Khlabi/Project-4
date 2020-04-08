@@ -7,7 +7,6 @@ const apiUrls = {
 
 }
 
-
 if (window.location.hostname === 'localhost') {
   apiURL = apiUrls.development;
 } else {

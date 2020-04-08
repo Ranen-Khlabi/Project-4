@@ -30,8 +30,8 @@ class Book extends React.Component {
   };
 
     // Method to resgiter a User to a book by ID
-  selectBook = () => {
-    this.props.selectBook(this.props.id);
+  favBook = () => {
+    this.props.favBook(this.props.id);
   };
     
       // Method to unresgiter
@@ -43,18 +43,18 @@ class Book extends React.Component {
     render() {
         // Delete button that appears if the contributor that made the book
         // is logged in 
-        const buttons = this.props.contributorLogged ? (
+        const buttons = this.props.contributor ? (
             <div>
-            <button onClick={this.deleteBook}>Delete Book</button>
-            <button onClick={this.updateBook}>Edit</button>
+            {/* <button className="upbutton" onClick={this.updateBook}>Edit</button> */}
+            <button className="upbutton" onClick={this.deleteBook}>Delete Book</button>
             </div>
         ) : ( 
          ""
         );
 
-        // Button to display for a student and if they click they can join the book
-        const joinBookButton = this.props.selectBook ? (
-        <button onClick={this.selectBook}>Join</button>
+        // Button to display for a student and if they click they can vav the book
+        const favBook = this.props.favBook ? (
+        <button className="fav" onClick={this.favBook}>Favorite</button>
         ) : (
          ""
         );
@@ -73,18 +73,20 @@ class Book extends React.Component {
 
         return (
             <div className="book">
+              <div style={this.state.editForm ? {height : "800px"} : {}}></div>
 
                 <h2>{this.props.title}</h2>
                 <p><img src={this.props.photo} alt={this.props.title}/></p>
-                <h3>The Book descrip</h3>
+                <h3>The Book description</h3>
                 <p>{this.props.description}</p>
+                <br/>
                 <h3>The Book Link</h3>
-                <p>{this.props.link}</p>
-                <p>{this.props.contributor.name}</p>
+                <p><a href={this.props.link}>click here to show book</a></p>
+                {/* <p>{this.props.contributor.name}</p> */}
 
                 {allStudents}
                 {buttons}
-                {joinBookButton}
+                {favBook}
                 {leaveBookButton}
                 
                 {this.state.editForm ? (

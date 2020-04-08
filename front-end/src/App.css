@@ -50,7 +50,7 @@ h4{
 	font-size: 15px;
 	font-weight: bold;
 	text-align: center;
-	color: rgb(199, 194, 194);
+	color: rgb(10, 10, 10);
 	-webkit-transition: 0.2s ease all;
 	   -moz-transition: 0.2s ease all;
 	    -ms-transition: 0.2s ease all;
@@ -59,7 +59,7 @@ h4{
 }
 
 h4:hover {
-	color: #c22424ea;
+	color: #347d9eea;
 }
 
 .home{
@@ -88,6 +88,10 @@ img{
   float: left;
 }
 
+nav .link{
+  line-height: 200px;
+}
+
 @media only screen and (min-width: 200px) {
   nav {
     text-align: justify;
@@ -110,8 +114,8 @@ img{
   .link{
     color: rgb(14, 105, 133);
     width: 100%;
-    padding: 5px 2px;
-    font-size: 20px;
+    padding: 5px 1px;
+    font-size: 17px;
     text-decoration: none;
     border-radius:(2px);
     box-shadow: (0 0 0 1px);

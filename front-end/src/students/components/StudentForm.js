@@ -42,6 +42,8 @@ export default class StudentForm extends Component {
         return (
             <div>
                 <form method="post" action="" onSubmit={this.OnsubmitHandler}>
+                <h4> Search Books? <br/> Enter your Account or sigUp</h4>
+                <br/>
                     <label for="name"> Your Name: </label>
                     <input type="text" 
                            name="name"

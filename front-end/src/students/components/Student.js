@@ -1,20 +1,23 @@
 import React, { Component } from "react";
 import Books from "../../books/component/books";
 import StudentForm from "./StudentForm";
-import { getAllStudents, deleteStudentById, loginStudent, logoutStudent} from "../api";
+import { getAllStudents, deleteStudentById, loginStudent } from "../api";
 import { IoIosHeart } from "react-icons/io";
+import "./Student.css";
 
 
 export default class Student extends Component {
   constructor(props) {
     super(props);
+    //create state for empty input by false and create an arry for students
     this.state = {
-        StudentLog: false,
-        studentLogged: "",
-        students:[],
-        addedBooks: [],
-        unaddedBooks: [],
-        showAddedBooks: false,
+      StudentLog: false,
+      studentLogged: "",
+      students: [],
+      addedBooks: [],
+      unaddedBooks: [],
+      showAddedBooks: false,
+      studentToken: localStorage.getItem("studentToken")
     };
   }
 
@@ -26,14 +29,27 @@ export default class Student extends Component {
               //fetch the data from the arry in response 
               students: response.data.students
             });
-            console.log(response.data.students);
+            console.log("Resultt", response.data.students);
         })
         .catch(err => console.log(err));
     }
 
+    logout = () => {
+      // Call API to logout student
+          this.setState({
+            StudentLog: false,
+            studentLogged: "",
+            addedBooks: [],
+            unaddedBooks: [],
+            studentToken: ""
+          });
+          localStorage.removeItem("studentToken");
+        }
+
 
     checkBookAdd = (book, studentId) => {
         return book.students.find(
+          // student => studentname.toLowerCase() === student.name.toLowerCase()
             student => student._id === studentId
         );
     };
@@ -51,24 +67,27 @@ export default class Student extends Component {
 
   // Method to register a Student to a Book and add it to the list of their registered
   // and removing it from the list of unregistered books
-  selectBook = bookId => {
+  favBook = bookId => {
     // Remove the book by id from the unadded books
     const unaddedBooks = this.state.unaddedBooks.filter(
       book => book._id !== bookId
     );
-  
 
-    // Get the new book that the student registered for
-    const book = this.state.unaddedBooks.find(book => book._id === bookId);
+    // Get the new post that the student registered for
+    const book = this.state.unaddedBooks.find(
+      book => book._id === bookId
+      );
 
-    // Get the current students name and push it to the list of students
+    // Get the current student's name and push it to the list of users
     // registered for the selected Book
     const student = this.getStudentname(this.state.studentLogged);
     book.students.push(student);
 
+    // After adding the new user to the post, push the post to the list
+    // of the registered user posts
     const addedBooks = [...this.state.addedBooks, book];
 
-    // Set the changes in both registered and unregistered student books
+    // Set the changes in both registered and unregistered user posts
     this.setState({
       addedBooks,
       unaddedBooks
@@ -103,10 +122,15 @@ export default class Student extends Component {
   authenticateStudent = async student => {
     try {
       const res = await loginStudent(student);
+
+      // Store the Recieved JWT in Local Storage
+      localStorage.setItem("studentToken", res.data.token);
+
       this.setState({
         StudentLog: true,
         studentLogged: res.data.student.id,
-        studentName: res.data.student.name
+        studentName: res.data.student.name,
+        studentToken: localStorage.getItem("studentToken")
       });
 
       return true
@@ -116,6 +140,7 @@ export default class Student extends Component {
     }
   }
 
+
   //create method login
   StudentLog = async student => {
     // Try Login Request for the submitted Student data
@@ -123,57 +148,63 @@ export default class Student extends Component {
 
     //check if the login is successfull
     if (loginSucess) {
-        const addedBooks = [];
-        const unaddedBooks = [];
+      const addedBooks = [];
+      const unaddedBooks = [];
 
-        this.props.books.forEach(book => {
-            if (this.checkBookAdd(book, this.state.studentLogged)) {
-                addedBooks.push(book);
-            } else {
-                unaddedBooks.push(book);
-            }
+      this.props.books.forEach(book => {
+        if (this.checkBookAdd(book, this.state.studentLogged)) {
+          addedBooks.push(book);
+        } else {
+          unaddedBooks.push(book);
+        }
+      });
+    
+          //create setStete if found return true
+          this.setState({
+            addedBooks,
+            unaddedBooks
+          });
+        } else {
+          //if the student not auth return nothing
+          this.setState({
+            StudentLog: false
+          });
+        }
+      }
+      
+  // Create Delete Function
+  deleteStudent = () => {
+    deleteStudentById(this.state.studentLogged, this.state.studentToken)
+      .then(response => {
+        // Create Varible for control to Array for User
+        // & Create ForLoop to check all index
+        // if user ID = userlog & delete one index
+        const books = [...this.state.addedBooks];
+        books.forEach(book => {
+          const index = book.students.findIndex(
+            studentId => this.state.studentLogged === studentId
+          );
+          book.students.splice(index, 1);
         });
 
-      //create setStete if found return true
-      this.setState({
-        addedBooks,
-        unaddedBooks
+        this.setState({
+          StudentLog: false,
+          studentLogged: "",
+          studentToken: "",
+          addedBooks: [],
+          unaddedBooks: []
+        });
+        
+        // Remove JWT from Local Storage
+        localStorage.removeItem("studentToken");
+      })
+      .catch(error => {
+        console.log("ERROR: ", error);
       });
-    } else {
-      //if the student not auth return nothing
-      this.setState({
-        StudentLog: false
-      });
-    }
-  }
-
-  // Create Delete function
-  deleteStudent = () => {
-    deleteStudentById(this.state.studentLogged)
-        .then(response => {
-            // Create Varible for control to Array for student 
-                // & Create ForLoop to check all index 
-                // if student ID = studentlog & delete one index
-                const books = [...this.state.addedBooks]
-                books.forEach(book => {
-                    const index = book.students.findIndex(studentId => 
-                    this.state.studentLogged === studentId
-                    )
-                    book.students.splice(index, 1)
-                })
-            this.setState({
-                StudentLog: false,
-                studentLogged: "",
-                addedBooks: books
-            })
-        })
-        .catch(error => {
-            console.log(error)
-        })
-    }
+  };
 
 
-    
+
   render() {
     const SelectedBooks = this.state.showAddedBooks ? ( <>
         <h2> Hello <IoIosHeart/> </h2>
@@ -194,26 +225,27 @@ export default class Student extends Component {
         books={this.state.unaddedBooks}
         setBooks={this.props.setBooks}
         studentId={this.state.studentLogged}
-        selectBook={this.selectBook}
+        favBook={this.favBook}
         />
         </>
         );
 
         const btnText = this.state.showAddedBooks
-            ? "Show Unadded Books"
-            : "Show Added Books";
+            ? "Show Unfav Books"
+            : "Show Fav Books";
 
     return (
       <div>
           {this.state.StudentLog ? (
           <>
-              <button onClick={this.deleteStudent}>Delete Student</button>
-              <button onClick={this.logout}>Logout</button>
+          <h2> Hello <IoIosHeart/></h2>
+              {/* <button className="bot" onClick={this.deleteStudent}>Delete Account</button> */}
+              <button className="bot" onClick={this.logout}>Logout</button>
           </>
       ) : (
         <StudentForm StudentLog = {this.StudentLog} />
       )}
-        <button onClick={this.toggleShowBooks}>{btnText}</button>
+        {/* <button className="bot" onClick={this.toggleShowBooks}>{btnText}</button> */}
                 {SelectedBooks}
       </div>
     );

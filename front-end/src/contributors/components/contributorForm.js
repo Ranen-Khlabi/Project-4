@@ -42,6 +42,8 @@ export default class ContributorForm extends Component {
         return (
             <div>
                 <form onSubmit={this.submitHandler}>
+                <h4> Contributor?<br/>Enter your Account or sigUp</h4>
+                <br/>
                     <label>Your Name: </label>
                     <input
                         value={this.state.name}
