@@ -1,4 +1,4 @@
-#[![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)![Misk Logo](https://i.ibb.co/KmXhJbm/Webp-net-resizeimage-1.png)
+[![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)![Misk Logo](https://i.ibb.co/KmXhJbm/Webp-net-resizeimage-1.png)
 
 
 # R-OnlineBooks
@@ -48,22 +48,22 @@ It is a website that helps students or anyone who wants to search for a referenc
 
 ###### Version 1:
 As a book researcher :
-should be able to register.
-should be able to login.
-should be able to show the books that I have chose at it .
-should be able to see the all books publish .
-should be able to leave book was chose before .
-should be able to logout .
+- should be able to register.
+- should be able to login.
+- should be able to show the books that I have - chose at it .
+- should be able to see the all books publish .
+- should be able to leave book was chose before .
+- should be able to logout .
 
 
 As a contribuotre :
-should be able to register.
-should be able to login.
-should be able to show all the refernces that I have published.
-should be able to add a new books .
-should be able to edit any books .
-should be able to delete any books .
-should be able to logout .
+- should be able to register.
+- should be able to login.
+- should be able to show all the refernces that I have published.
+- should be able to add a new books .
+- should be able to edit any books .
+- should be able to delete any books .
+- should be able to logout .
 
 ​
 ## Prerequisites
@@ -101,6 +101,8 @@ Usually The Application Runs on **localhost:3000**
 ## Version 2
 - Improve design.
 - More interactive.
+- add full CRUD to all model.
+- Can Add book to favorite list.
 ​
 
 ## Resources
