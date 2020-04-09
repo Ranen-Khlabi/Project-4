@@ -50,9 +50,7 @@ It is a website that helps students or anyone who wants to search for a referenc
 As a book researcher :
 - should be able to register.
 - should be able to login.
-- should be able to show the books that I have - chose at it .
 - should be able to see the all books publish .
-- should be able to leave book was chose before .
 - should be able to logout .
 
 
@@ -61,7 +59,6 @@ As a contribuotre :
 - should be able to login.
 - should be able to show all the refernces that I have published.
 - should be able to add a new books .
-- should be able to edit any books .
 - should be able to delete any books .
 - should be able to logout .
 
