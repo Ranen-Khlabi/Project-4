@@ -29,10 +29,6 @@ class Book extends React.Component {
     this.props.editBook(id, book);
   };
 
-    // Method to resgiter a User to a book by ID
-  favBook = () => {
-    this.props.favBook(this.props.id);
-  };
     
       // Method to unresgiter
   leaveBook = () => {
@@ -52,12 +48,6 @@ class Book extends React.Component {
          ""
         );
 
-        // Button to display for a student and if they click they can vav the book
-        // const favBook = this.props.favBook ? (
-        // <button className="fav" onClick={this.favBook}>Favorite</button>
-        // ) : (
-        //  ""
-        // );
   
         // button to remove the book that has resgiter before
          const leaveBookButton = this.props.leaveBook ? (
@@ -82,11 +72,9 @@ class Book extends React.Component {
                 <br/>
                 <h3>Link</h3>
                 <p><a href={this.props.link}>click here to show book</a></p>
-                {/* <p>{this.props.contributor.name}</p> */}
 
                 {allStudents}
                 {buttons}
-                {/* {favBook} */}
                 {leaveBookButton}
                 
                 {this.state.editForm ? (

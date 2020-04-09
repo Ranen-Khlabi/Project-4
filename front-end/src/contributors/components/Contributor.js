@@ -44,15 +44,6 @@ export default class Contributor extends Component {
         // Clear the JWT fron Local Storage
         localStorage.removeItem("contributorToken");
 
-        // contributorLogout()
-        //     .then(res => {
-        //         this.setState({
-        //             contributorLogged: false,
-        //             contributorId: "",
-        //             contributorBooks: ""
-        //         });
-        //     })
-        //     .catch(err => console.log(err));
     }
 
     // Try to Login contributor with the submitted data

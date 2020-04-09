@@ -57,22 +57,6 @@ class Books extends React.Component {
     return this.props.books.find(book => book._id === bookId);
   };
 
-  // Method to register a Student to book by ID
-  favBook = bookId => {
-    // Get the current book that the student is registering for
-    const book = this.getBookById(bookId);
-
-    // Add the new registered student to the book's list of users
-    const updatedStudentsList = [...book.students, this.props.studentId];
-
-    // Make an API request to update list of books students
-    editBookById(bookId, { students: updatedStudentsList })
-      .then(res => {
-        // Pass the updated book ID to parent to set its state
-        this.props.favBook("Yes", bookId);
-      })
-      .catch(err => console.log("ERROR", err));
-  };
 
   // Method to unregister a User to book by ID
   leaveBook = bookId => {
@@ -112,7 +96,6 @@ class Books extends React.Component {
             ContributorLogged={this.props.ContributorLogged}
             deleteBook={this.deleteBook}
             editBook={this.editBook}
-            favBook={this.props.favBook ? this.favBook : null}
             leaveBook={this.props.leaveBook ? this.leaveBook : null}
           />
         );

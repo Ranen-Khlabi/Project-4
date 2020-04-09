@@ -225,7 +225,6 @@ export default class Student extends Component {
         books={this.state.unaddedBooks}
         setBooks={this.props.setBooks}
         studentId={this.state.studentLogged}
-        favBook={this.favBook}
         />
         </>
         );
@@ -239,13 +238,11 @@ export default class Student extends Component {
           {this.state.StudentLog ? (
           <>
           <h2> Hello <IoIosHeart/></h2>
-              {/* <button className="bot" onClick={this.deleteStudent}>Delete Account</button> */}
               <button className="bot" onClick={this.logout}>Logout</button>
           </>
       ) : (
         <StudentForm StudentLog = {this.StudentLog} />
       )}
-        {/* <button className="bot" onClick={this.toggleShowBooks}>{btnText}</button> */}
                 {SelectedBooks}
       </div>
     );

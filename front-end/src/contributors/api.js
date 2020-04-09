@@ -11,10 +11,6 @@ const addNewContributor =(contributor)=>{
     return axios.post(`${apiUrl}/contributors`, {contributor})
 }
 
-// Delete Contributor by ID
-// const deleteContributor = (id) => {
-//     return axios.delete(`${apiUrl}/contributors/${id}`);
-// }
 
 const deleteContributor = (id, token) => {
     return axios.delete(
@@ -28,20 +24,6 @@ const deleteContributor = (id, token) => {
             }
         );
 }
-
-
-
-
-// // Login Contributor
-// const contributorLogin = contributor => {
-//     return axios.post(
-//         `${apiUrl}/contributorns/login`, 
-//         {contributor},
-//         {
-//             withCredentials: true,
-//             credentials: "include"
-//         })
-// }
 
 
 

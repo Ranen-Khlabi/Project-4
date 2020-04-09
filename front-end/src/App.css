@@ -8,7 +8,6 @@
 body {
   font-family: helvetica, arial, sans-serif;
   padding-top: 200px;
-  /* padding-bottom: 100px; */
 	transition: (padding-top .5s ease);
 }
 
@@ -112,10 +111,6 @@ h2{
 		height: 60px;
     line-height: 60px;
 		width: 100%;
-    /* background-color: #b4a4a47a; */
-    /* position: fixed;
-    top: 0;
-    transition: (all .5s ease); */
   }
   .link{
     color: rgb(14, 105, 133);
