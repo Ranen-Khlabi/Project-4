@@ -85,14 +85,16 @@ button[type=submit]:active {
 
 h2{
 	font-family: cursive;
-	font-size: 25px;
-	padding-left: 200px;
+	font-size: 20px;
+	/* padding-left: 200px; */
 	color: rgb(83, 80, 80);
 }
 
 p{
-	font-size: 25px;
-	font-family: serif;
+	font-size: 18px;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	color: black;
+	padding-bottom: 8px;
 }
 
 .bot{
@@ -106,8 +108,8 @@ p{
     form{
         margin: 0 auto 30px auto;
         padding: 30px;
-        width: 500px;
-        height: 500px;
+        width: 250px;
+        height: 400px;
         overflow: hidden;
         background:rgba(223, 216, 216, 0.397);
         border-radius: 10px;

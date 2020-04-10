@@ -65,7 +65,7 @@ class Book extends React.Component {
             <div className="book">
               <div style={this.state.editForm ? {height : "800px"} : {}}></div>
 
-                <h2>{this.props.title}</h2>
+                <h2 className="titles">{this.props.title}</h2>
                 <p><img src={this.props.photo} alt={this.props.title}/></p>
                 <h3>Description</h3>
                 <p>{this.props.description}</p>
